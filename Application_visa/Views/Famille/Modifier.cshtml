@@ -1,0 +1,229 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@section Title{
+    <title>Aposstille</title>
+}
+    @model Application_visa.Models.Famille
+
+
+    <div class="col-12">
+        <h2 class="mb-2">Famille</h2>
+        <p>Modifier une Famille</p>
+        <form method="post" action="#" enctype="multipart/form-data">
+            <span style="color:red">@ViewData["erorPrix"]</span>
+            <div class="row justify-content-center col-12">
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Nom</label>
+                        <input class="form-control" type="text" asp-for="nom" placeholder=" " readonly>
+                        <span asp-validation-for="nom"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Prenom</label>
+                        <input class="form-control" type="text" asp-for="prenom" placeholder=" " readonly>
+                        <span asp-validation-for="prenom"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center col-12">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Telephone</label>
+                        <input class="form-control" type="text" asp-for="tele" placeholder=" " readonly>
+                        <span asp-validation-for="tele"></span>
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">CIN</label>
+                        <input class="form-control" type="text" asp-for="cin" placeholder=" " readonly>
+                        <span asp-validation-for="cin"></span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Scan de document de traduction  (Avant la traduction)</label>
+                        <a class="form-control" href="~/scans/@Model.scan">scan de document</a>
+                        <span asp-validation-for="file3"></span>
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Charge de traduction</label>
+                        <input class="form-control" type="number" asp-for="charge" placeholder=" " readonly>
+                        <span asp-validation-for="charge"></span>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row justify-content-center">
+            @if (Model.scan1 == "")
+            {
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Scan de document de traduction (Apres la traduction)</label>
+                        <input class="form-control" type="file" asp-for="file" placeholder=" ">
+                        <span asp-validation-for="file"></span>
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Scan de document de traduction (Apres la traduction)</label>
+                        <input class="form-control" type="hidden" asp-for="scan1" placeholder=" " readonly>
+                        <a class="form-control" href="~/scans/@Model.scan1">scan de document</a>
+                        <span asp-validation-for="file"></span>
+
+                    </div>
+                </div>
+            }
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">Traducteur</label>
+                    <input class="form-control" type="text" asp-for="fournisseur.nom" placeholder=" " readonly>
+                    <span asp-validation-for="fournisseur"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            @if (Model.scan2 == "")
+            {
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="mb-0">Scan de l'analyse</label>
+                        <input class="form-control" type="file" asp-for="file1" placeholder=" ">
+                        <span asp-validation-for="file1"></span>
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="mb-0">Scan de l'analyse</label>
+                        <input class="form-control" type="hidden" asp-for="scan2" placeholder=" " readonly>
+                        <a class="form-control" href="~/scans/@Model.scan2">scan de document</a>
+                        <span asp-validation-for="file1"></span>
+
+                    </div>
+                </div>
+            }
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="mb-0">Charge de l'analyse</label>
+                    <input class="form-control" type="number" asp-for="charge2" placeholder=" " readonly>
+                    <span asp-validation-for="charge2"></span>
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="mb-0">Laboratoire</label>
+                    <input class="form-control" type="text" value="Laboratoire" placeholder=" " readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            @if (Model.scan3 == "")
+            {
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="mb-0">Scan du Certificat médical</label>
+                        <input class="form-control" type="file" asp-for="file2" placeholder=" ">
+                        <span asp-validation-for="file2"></span>
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="mb-0">Scan du Certificat médical</label>
+                        <input class="form-control" type="hidden" asp-for="scan3" placeholder=" " readonly>
+                        <a class="form-control" href="~/scans/@Model.scan3">scan de document</a>
+                        <span asp-validation-for="file2"></span>
+
+                    </div>
+                </div>
+            }
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="mb-0">Charge du Certificat médical</label>
+                    <input class="form-control" type="number" asp-for="charge3" placeholder=" " readonly>
+                    <span asp-validation-for="charge3"></span>
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="mb-0">Medecin</label>
+                    <input class="form-control" type="text" value="Medecin" placeholder=" " readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            @if (Model.ami_khaled == false)
+            {
+                @if (Model.prix >= Model.charge + Model.charge2 + Model.charge3 && Model.prix < Model.total)
+                {
+                    <div class="col-lg-4">
+                        <div class="form-group" id="prix">
+                            <label class="mb-0">Prix</label>
+                            <input class="form-control" type="number" asp-for="prix" placeholder=" ">
+                            <span asp-validation-for="prix"></span>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-lg-4">
+                        <div class="form-group" id="prix">
+                            <label class="mb-0">Prix</label>
+                            <input class="form-control" type="number" asp-for="prix" placeholder=" " readonly>
+                            <span asp-validation-for="prix"></span>
+
+                        </div>
+                    </div>
+                }
+
+            }
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="mb-0">Total</label>
+                    <input class="form-control" type="number" asp-for="total" placeholder=" " readonly>
+                    <span asp-validation-for="total"></span>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+            <button type="submit" class="btn btn-primary btn-lg">Modifer</button>
+        </div>
+    </form>
+</div>
+<script src="~/assets/js/amieKhalid.js"></script>

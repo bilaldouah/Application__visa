@@ -1,0 +1,473 @@
+﻿@model Application_visa.Models.Statistique
+@{
+    Layout = "";
+}
+@section Title{
+    <title>dashboard</title>
+}
+ <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>EmailCHIMP | Responsive Bootstrap 4 Admin Dashboard Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.10.1/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js" integrity="sha512-+IpCthlNahOuERYUSnKFjzjdKXIbJ/7Dd6xvUp+7bEw0Jp2dg6tluyxLs+zq9BMzZgrLv8886T4cBSqnKiVgUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" integrity="sha512-cznfNokevSG7QPA5dZepud8taylLdvgr0lDqw/FEZIhluFsSwyvS81CMnRdrNSKwbsmc43LtRd2/WMQV+Z85AQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <!-- Favicon -->
+      <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+      <link rel="stylesheet" href="../assets/css/backend-plugin.min.css">
+      <link rel="stylesheet" href="../assets/css/backend.css?v=1.0.2">
+      <link rel="stylesheet" href="../assets/vendor/fortawesome/fontawesome-free/css/all.min.css">
+      <link rel="stylesheet" href="../assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+      <link rel="stylesheet" href="../assets/vendor/remixicon/fonts/remixicon.css">
+      <link rel="stylesheet" href="../assets/vendor/icon/dripicons/dripicons.css">
+  </head>
+  <style>
+    .background {
+        background-color: antiquewhite;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+  </style>
+
+    <body>
+  
+        <div class="d-flex ">
+               
+                    <div class="col-2 m-0 p-0">
+                    <div class="iq-sidebar  sidebar-default ">
+                        <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
+                            <a href="~/backend/index.html" class="header-logo">
+                                <img src="~/assets/images/logo.png" class="img-fluid  light-logo" alt="logo"><h5 class="logo-title text-white ml-3 mt-1">EmailCHIMP</h5>
+                            </a>
+
+                            <div class="iq-menu-bt-sidebar ">
+                                <svg class="svg-icon feather feather-repeat wrapper-menu animated rotation" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="17 1 21 5 17 9"></polyline>
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                                    <polyline points="7 23 3 19 7 15"></polyline>
+                                    <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="data-scrollbar" data-scroll="1">
+                            <nav class="iq-sidebar-menu">
+                                <ul id="iq-sidebar-toggle" class="iq-menu">
+                            <p class="text-center">les agences</p>
+                                    @foreach (Agence agences in Model.agences)
+                                    {
+                                        <li class="active">
+                                    <a href="~/Statistique/dashboardAgences?agId=@agences.id&serviceId=-1&dateD=&dateF=&year=-1&Kh=" class="svg-icon">
+                                                <svg class="svg-icon feather feather-home" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                                </svg>
+                                                <span class="ml-3">@agences.nom</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+
+                            </nav>
+                            <div class="p-3"></div>
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>   
+                        <div class="d-flex flex-column col-10 p-0 ">
+                             <nav class="navbar navbar-expand-sm bg-info navbar-dark ">
+            <ul class="navbar-nav ">
+                <li class="nav-item active ml-4 ">
+                        <select asp-for="service.id" id="service" onchange="ListChanged()">
+                            <option class="text-center" value="-1">tous</option>
+                       @foreach(Service services in Model.services)
+                        {
+                                if (services.id == @ViewBag.idS)
+                                {
+                                    <option class="text-center" selected value="@services.id">@services.nom</option>
+                                }
+                                else
+                                {
+                                    <option class="text-center"  value="@services.id">@services.nom</option>
+                                }
+
+                        }
+                    </select>
+                </li>
+                <li class="nav-item">
+                        <select asp-for="user.agence.id" id="agence" onchange="ListChanged()">
+                            <option class="text-center" value="-1">tous</option>
+                        @foreach (Agence agences in Model.agences)
+                        {
+                                if (agences.id == @ViewBag.idA)
+                                {
+                                    <option selected class="text-center" value="@agences.id">@agences.nom</option>
+                                }
+                                else
+                                {
+                                    <option  class="text-center" value="@agences.id">@agences.nom</option>
+                                }
+                                
+
+                        }
+                    </select>
+                </li>
+                <li class="nav-item">
+                        from  <input type="date" value="@ViewBag.dateD" id="dateD" onchange="ListChanged()" />
+                </li>
+                <li class="nav-item">
+                        to  <input type="date"  value="@ViewBag.dateF" id="dateF" onchange="ListChanged()" />
+                </li>
+                 <li class="nav-item">
+                        <select asp-for="getYears" id="years" onchange="ListChanged()">
+                            <option class="text-center" value="-1">tous</option>
+                            @foreach (dateRepository years in Model.years)
+                        {
+                                if (years.getAllyears == @ViewBag.year)
+                                {
+                                    <option selected class="text-center" value="@years.getAllyears">@years.getAllyears</option>
+                                }
+                                else
+                                {
+                                    <option class="text-center" value="@years.getAllyears">@years.getAllyears</option>
+                                }
+
+                        }
+                    </select>
+                </li>
+                    <li class="nav-item">
+                        <select id="amisKhalidList" onchange="ListChanged()">
+                            @{
+                                var kh = ViewBag.kh as string;
+                            }
+                            <option class="text-center" value="" selected="@(kh == null)">tous</option>
+                            <option class="text-center" value="true" selected="@(kh == "true")">amis khalid</option>
+                            <option class="text-center" value="false" selected="@(kh == "false")">amis non khalid</option>
+                        </select>
+                    </li>
+            </ul>
+    </nav>
+                <div class="d-flex justify-content-center background pt-4 m-5">
+
+                            <div class="col-10 " onclick="goToArchive()" id="chart2"> </div>
+
+                </div>
+
+                            <div class="d-flex   justify-content-around">
+                                        <div class="col-4  background" onclick="goToArchive()" id="chart3"></div>
+                                        <div class="col-4 background" onclick="goToArchive()" id="chart4"></div>
+               
+                             </div>
+            <div class="d-flex justify-content-center background pt-4 m-5">
+
+                <div class="col-10 background" onclick="goToArchive()" id="chart5"></div>
+
+            </div>
+          
+            </div>
+
+                        </div>     
+         
+    </body>
+<script type="text/javascript">
+
+    function ListChanged() {
+        var service = document.getElementById('service');
+        var IdService = service[service.selectedIndex].value;
+        ////////////////////////////////////////////////////////
+        var agence = document.getElementById('agence');
+        var IdAgence = agence[agence.selectedIndex].value;
+        /////////////////////////////////////////////////////////
+        var dateDebut = document.getElementById("dateD");
+        var dateD = dateDebut.value;
+        /////////////////////////////////////////////////////////
+        var dateFin = document.getElementById("dateF");
+        var dateF = dateFin.value;
+        /////////////////////////////////////////////////////////
+        var years = document.getElementById('years');
+        var yearsV = years[years.selectedIndex].value;
+
+        var amieKh = document.getElementById('amisKhalidList');
+        var IdKh = amieKh[amieKh.selectedIndex].value;
+
+        window.location.href = "dashboard?serviceId=" + IdService + "&agenceId=" + IdAgence + "&dateD=" + dateD + "&dateF=" + dateF + "&year=" + yearsV + "&Kh=" + IdKh;
+    }
+    function goToArchive()
+    {
+        var service = document.getElementById('service');
+        var IdService = service[service.selectedIndex].value;
+        ////////////////////////////////////////////////////////
+        var agence = document.getElementById('agence');
+        var IdAgence = agence[agence.selectedIndex].value;
+        /////////////////////////////////////////////////////////
+        var dateDebut = document.getElementById("dateD");
+        var dateD = dateDebut.value;
+        /////////////////////////////////////////////////////////
+        var dateFin = document.getElementById("dateF");
+        var dateF = dateFin.value;
+        /////////////////////////////////////////////////////////
+        var years = document.getElementById('years');
+        var yearsV = years[years.selectedIndex].value;
+
+        var amieKh = document.getElementById('amisKhalidList');
+        var IdKh = amieKh[amieKh.selectedIndex].value;
+
+        window.location.href = "dashboardTable?serviceId=" + IdService + "&agenceId=" + IdAgence + "&dateD=" + dateD + "&dateF=" + dateF + "&year=" + yearsV + "&Kh=" + IdKh;
+    }
+</script>   
+<script type="text/javascript">
+    var chart5 = c3.generate({
+        bindto: "#chart5",
+        data: {
+            columns: [
+    @for (int i=0;i<Model.fournisseureName.Count;i++)
+    {
+        @:['@Model.fournisseureName[i].nom', 0],
+
+    }
+                ],
+            type: 'bar'
+        },
+        bar: {
+            width: {
+                ratio: 0.5 // this makes bar width 50% of length between ticks
+            }
+            // or
+            //width: 100 // this makes bar width 100px
+        }
+    });
+    setTimeout(function () {
+        chart5.load({
+            columns: [
+    @for (int i=0;i<Model.fournisseureName.Count;i++)
+    {
+        @:['@Model.fournisseureName[i].nom', @Model.countSumFourniseurs[i].nbrSalaireFour],
+    }
+                ]
+        });
+    }, 1000);
+</script>
+
+
+<script type ="text/javascript">
+    var chart2 = c3.generate({
+        bindto: "#chart2",
+        data: {
+            columns: [
+          @for (int i = 0; i < Model.monthsNM.Count; i++)
+    {
+
+        @:['@Model.monthsNM[i].monthName', 0],
+                         
+                 }                                            
+            ],
+            type: 'bar'
+        },
+        bar: {
+            width: {
+                ratio: 0.5 // this makes bar width 50% of length between ticks
+            }
+            // or
+            //width: 100 // this makes bar width 100px
+        }
+    });
+    setTimeout(function () {
+        chart2.load({
+            columns: [
+    @for (int i = 0; i < Model.monthsNM.Count; i++)
+    {
+
+                @:['@Model.monthsNM[i].monthName', @Model.nbrFilles[i].countNbrFilles],
+    }
+            ]
+        });
+    }, 1000);
+          </script>
+
+<script>
+    var chart3 = c3.generate({
+        bindto: "#chart3",
+        data: {
+            columns: [
+                ['avance', 0]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) {
+                console.log("onclick", d, i);
+
+            },
+            onmouseover: function (d, i) {
+                console.log("onmouseover", d, i);
+            },
+            onmouseout: function (d, i) {
+                console.log("onmouseout", d, i);
+            }
+        },
+        gauge: {
+            label: {
+                format: function (value, ratio) {
+                    return value;
+                },
+                show: true // to turn off the min/max labels.
+            },
+            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: @Model.countNbrFillesAdded, // 100 is default
+        units: 'avance',
+        //    width: 39 // for adjusting arc thickness
+    },
+        color: {
+        pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+        threshold: {
+            //            unit: 'value', // percentage is default
+            //            max: 200, // 100 is default
+            values: [30, 60, 90, 100]
+        }
+    },
+        size: {
+        height: 180
+    }
+            });
+
+    setTimeout(function () {
+        chart3.load({
+            columns: [['avance', @Model.nbrFilesAvance]]
+        });
+    }, 1000);
+
+
+</script>
+<script>
+
+    var chart = c3.generate({
+        bindto: "#chart1",
+        data: {
+            columns: [
+                ['files ajouter', 0]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        gauge: {
+            //        label: {
+            //            format: function(value, ratio) {
+            //                return value;
+            //            },
+            //            show: false // to turn off the min/max labels.
+            //        },
+            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            //    max: 100, // 100 is default
+            //    units: ' %',
+            //    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });
+    setTimeout(function () {
+        chart.load({
+            columns: [['files ajouter', @Model.countNbrFillesAdded]]
+        });
+    }, 1000);
+   
+
+</script>
+<script type="text/javascript">
+    var chart2 = c3.generate({
+        bindto: "#chart2",
+        data: {
+            columns: [
+    @for (int i = 0; i < Model.monthsNM.Count; i++)
+    {
+
+        @:['@Model.monthsNM[i].monthName', 0],
+
+    }
+                ],
+            type: 'bar'
+        },
+        bar: {
+            width: {
+                ratio: 0.5 // this makes bar width 50% of length between ticks
+            }
+            // or
+            //width: 100 // this makes bar width 100px
+        }
+    });
+    setTimeout(function () {
+        chart2.load({
+            columns: [
+    @for (int i = 0; i < Model.monthsNM.Count; i++)
+    {
+
+        @:['@Model.monthsNM[i].monthName', @Model.nbrFilles[i].countNbrFilles],
+    }
+                ]
+        });
+    }, 1000);
+</script>
+
+<script>
+    var chart4 = c3.generate({
+        bindto: "#chart4",
+        data: {
+            columns: [
+                ['files done', 0]
+            ],
+            type: 'gauge',
+            onclick: function (d, i) {
+                console.log("onclick", d, i);
+            },
+            onmouseover: function (d, i) {
+                console.log("onmouseover", d, i);
+            },
+            onmouseout: function (d, i) {
+                console.log("onmouseout", d, i);
+            }
+        },
+        gauge: {
+            label: {
+                format: function (value, ratio) {
+                    return value;
+                },
+                show: true // to turn off the min/max labels.
+            },
+            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+            max: @Model.countNbrFillesAdded, // 100 is default
+            units: 'files done',
+            //    width: 39 // for adjusting arc thickness
+        },
+        color: {
+            pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+            threshold: {
+                //            unit: 'value', // percentage is default
+                //            max: 200, // 100 is default
+                values: [30, 60, 90, 100]
+            }
+        },
+        size: {
+            height: 180
+        }
+    });
+
+    setTimeout(function () {
+        chart4.load({
+            columns: [['files done', @Model.nbrFilesDone]]
+        });
+    }, 1000);
+</script>

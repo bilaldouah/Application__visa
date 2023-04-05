@@ -1,0 +1,23 @@
+﻿@model List<Application_visa.Models.Role>;
+
+@section Title{
+    <title>Home</title>
+}
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>libelle</th>
+            <th></th>
+            <th></th>
+        </tr>
+    @foreach (Role c in Model)
+    {
+        <tr>
+            <th>@c.id</th>
+            <th>@c.nom</th>
+            <th><a class="btn btn-warning" asp-action="Update" asp-controller="Category" asp-route-id="@c.id">Modifier</a></th>
+            <th><a class="btn btn-danger" asp-action="delete" asp-controller="Category" asp-route-id="@c.id">Suprimer</a></th>
+        </tr>
+    }
+</table>

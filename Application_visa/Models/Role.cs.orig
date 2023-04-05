@@ -1,0 +1,13 @@
+﻿namespace Application_visa.Models
+{
+    public class Role
+    {
+        private int ? id { get; set; }
+        private string role { get; set; }
+<<<<<<< HEAD
+  
+=======
+>>>>>>> e9f4645f3c0c05deb22128c79c9f4a83676b37ff
+
+    }
+}

@@ -1,0 +1,116 @@
+﻿@section Title{
+    <title>Traduction</title>
+}
+@model Application_visa.Models.Traduction
+
+<!-- loader END -->
+
+<div class="col-12">
+    <h2 class="mb-2">Traduction</h2>
+    <p>Ajouter une Traduction</p>
+    <form method="post" action="#" enctype="multipart/form-data">
+        <span style="color:red">@ViewData["erorPrix"]</span>
+        <div class="row justify-content-center col-12">
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">Nom</label>
+                    <input class="form-control" type="text" asp-for="nom" placeholder=" " required>
+                    <span asp-validation-for="nom"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">Prenom</label>
+                    <input class="form-control" type="text" asp-for="prenom" placeholder=" " required>
+                    <span asp-validation-for="prenom"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center col-12">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">Telephome</label>
+                    <input class="form-control" type="text" asp-for="tele" placeholder=" " required>
+                    <span asp-validation-for="tele"></span>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">CIN</label>
+                    <input class="form-control" type="text" asp-for="cin" placeholder=" " required>
+                    <span asp-validation-for="cin"></span>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">Scan avant Traduction</label>
+                    <input class="form-control" type="file" asp-for="file" placeholder=" " required>
+                    <span asp-validation-for="file"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">Scan après Traduction</label>
+                    <input class="form-control" type="file" asp-for="file_1" placeholder=" " >
+                    <span asp-validation-for="file_1"></span>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group" id="prix">
+                    <label class="mb-0">Prix</label>
+                    <input class="form-control" type="number" asp-for="prix" placeholder=" " >
+                    <span asp-validation-for="prix"></span>
+
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">Charge</label>
+                    <input class="form-control" type="number" asp-for="charge" placeholder=" " required>
+                    <span asp-validation-for="charge"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">Total</label>
+                    <input class="form-control" type="number" asp-for="total" placeholder=" " required>
+                    <span asp-validation-for="total"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">Traducteur</label>
+                    <select asp-for="fournisseur.id">
+                        @foreach (var f in ViewBag.fourniseur)
+                        {
+                            <option value="@f.id">@f.nom</option>
+                        }
+                    </select>
+
+                    <span asp-validation-for="fournisseur"></span>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group d-flex justify-content-between">
+                    <label class="mb-0 w-100">De la part de Khalid</label>
+                    <input class="form-control" type="checkbox" asp-for="ami_khaled" placeholder=" " id="check_khalid" onchange="change()">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+        </div>
+    </form>
+</div>
+<script src="~/assets/js/amieKhalid.js"></script>

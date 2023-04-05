@@ -1,0 +1,123 @@
+﻿using Application_visa.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Policy;
+
+namespace Application_visa.Controllers
+{
+    public class StatistiqueController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+     
+        public IActionResult dashboardTable(int serviceId, int agenceId, string dateD, string dateF, int year, string kh)
+        {
+            ViewBag.idS = serviceId;
+            ViewBag.idA = agenceId;
+            ViewBag.dateD = dateD;
+            ViewBag.dateF = dateF;
+            ViewBag.year = year;
+            ViewBag.kh = kh;
+            ViewBag.login = HttpContext.Session.GetString("userLogin");
+            Statistique statistique = new Statistique();
+            Service service = new Service();
+            Agence agence = new Agence();
+            var viewModel = new Statistique
+            {
+                agences = agence.getAgences(),
+                services = service.getAllServices(),
+                years = statistique.getAllYears(),
+                files = statistique.filterQeury(serviceId, agenceId, dateD, dateF, year,kh),
+            };
+        
+            return View(viewModel);
+        }
+        public IActionResult dashboard(int serviceId, int agenceId, string dateD, string dateF, int year, string kh,int agId,int empId)
+        {
+            ViewBag.idS= serviceId;
+            ViewBag.idA = agenceId;
+            ViewBag.dateD= dateD;
+            ViewBag.dateF= dateF;
+            ViewBag.year = year;
+            ViewBag.kh = kh;
+            Statistique s = new Statistique();
+            Agence agence = new Agence();
+            Service service= new Service();
+            dateRepository dateRep = new dateRepository();
+            var viewModel = new Statistique
+            {
+                agences = agence.getAgences(),
+                countNbrFillesAdded = s.countAddedFiles(serviceId, agenceId, dateD, dateF, year, kh),
+                nbrFilesAvance = s.getCountAvance(serviceId, agenceId, dateD, dateF, year, kh),
+                nbrFilesDone = s.getCountFilesDone(serviceId, agenceId, dateD, dateF, year, kh),
+                services = service.getAllServices(),
+                years = s.getAllYears(),
+                nbrFilles = s.countFiles(serviceId, agenceId, dateD, dateF, year, kh).Item1,
+                monthsNM = s.countFiles(serviceId, agenceId, dateD, dateF, year, kh).Item2,
+                countSumFourniseurs = s.getCountCharge(serviceId, agenceId, dateD, dateF, year, kh),
+                fournisseureName = Fournisseur.getAllFournisseurs(),
+            };
+
+            return View(viewModel);
+        }
+        public IActionResult dashboardAgences(int agId,int serviceId,string dateD, string dateF, int year, string kh)
+        {
+            ViewBag.idS = serviceId;
+            ViewBag.dateD = dateD;
+            ViewBag.dateF = dateF;
+            ViewBag.year = year;
+            ViewBag.kh = kh;
+            ViewBag.idAgence = agId;
+            Statistique s = new Statistique();
+            Agence agence = new Agence();
+            Service service = new Service();
+            User user= new User();
+            dateRepository dateRep = new dateRepository();
+            var viewModel = new Statistique
+            {
+                users = user.getUsersByAgence(agId),
+                agences = agence.getAgences(),
+                countNbrFillesAdded = s.filterQeuryByAgennce(serviceId,dateD,dateF,year,kh,agId),  
+                nbrFilesAvance = s.getCountAvanceByAg(serviceId, dateD, dateF, year, kh, agId),
+                nbrFilesDone = s.getCountFilesDoneByAg(serviceId, dateD, dateF, year, kh, agId),
+                services = service.getAllServices(),
+                years = s.getAllYears(),
+
+                nbrFilles = s.countFilesByAg(serviceId, dateD, dateF, year, kh, agId).Item1,
+                 monthsNM = s.countFilesByAg(serviceId, dateD, dateF, year, kh, agId).Item2,
+            };
+
+            return View(viewModel);
+        }
+
+        public IActionResult dashboardEmp(int empId,int agId, int serviceId, string dateD, string dateF, int year, string kh)
+        {
+            ViewBag.idS = serviceId;
+            ViewBag.dateD = dateD;
+            ViewBag.dateF = dateF;
+            ViewBag.year = year;
+            ViewBag.kh = kh;
+            Statistique s = new Statistique();
+            Agence agence = new Agence();
+            Service service = new Service();
+            User user = new User();
+            dateRepository dateRep = new dateRepository();
+            var viewModel = new Statistique
+            {
+                users = user.getUsersById(empId),
+                agences = agence.getAgences(),
+                countNbrFillesAdded = s.filterQeuryByEmp(serviceId, dateD, dateF, year, kh, agId,empId),
+                nbrFilesAvance = s.getCountAvanceByEmp(serviceId, dateD, dateF, year, kh, agId, empId),
+                nbrFilesDone = s.getCountFilesDoneByEmp(serviceId, dateD, dateF, year, kh, agId, empId),
+                services = service.getAllServices(),
+                years = s.getAllYears(),
+
+                nbrFilles = s.countFilesByEmp(serviceId, dateD, dateF, year, kh, agId, empId).Item1,
+                monthsNM = s.countFilesByEmp(serviceId, dateD, dateF, year, kh, agId, empId).Item2,
+            };
+
+            return View(viewModel);
+        }
+    }
+}

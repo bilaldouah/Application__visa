@@ -1,0 +1,74 @@
+﻿@section Title{
+    <title>ajouter utilisateur</title>
+}
+@model Application_visa.Models.User
+                       <div class="col-12">
+                            <form method="post">
+                                <div class="row justify-content-center col-12">
+                                    
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="mb-0">Login</label>
+                                            <input class="form-control" type="text" asp-for="login" placeholder=" ">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="mb-0">Password</label>
+                                            <input class="form-control" type="password" asp-for="pwd" placeholder=" ">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center col-12">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="mb-0">Confirm Password</label>
+                                            <input class="form-control" name="passwordConfirm" type="password" placeholder=" ">
+                                            <div asp-validation-summary="All"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="mb-0">Role</label>
+                                            <select asp-for="role.id">
+                                                @foreach (Role r in Model.roles)
+                                                {
+                                                    <option value="@r.id"> @r.nom</option>
+                                                }
+                                            </select>
+                                            <div asp-validation-summary="All"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="mb-0">Agence</label>
+                                            <select asp-for="agence.id">
+                                                @foreach (Agence agence in Model.agences)
+                                                {
+                                                    <option value="@agence.id"> @agence.nom</option>
+                                                }
+                                            </select>
+                                            <div asp-validation-summary="All"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6">
+                                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center mt-3">
+                                    <div class="col-lg-6">
+                                        <p>Already have an Account <a href="auth-sign-in.html" class="text-primary">Sign In</a></p>
+                                    </div>
+                                </div>
+                            </form>
+</div>
