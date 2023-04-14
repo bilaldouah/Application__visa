@@ -144,6 +144,7 @@ namespace Application_visa.Models
                 {
                     user.id = int.Parse(reader["id"].ToString());
                     user.login = reader["login"].ToString();
+                    user.agence = Agence.getAgence(int.Parse(reader["id_agence"].ToString()));
                 }
             conn.Close();
             return user;

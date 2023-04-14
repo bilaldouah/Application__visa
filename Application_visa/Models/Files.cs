@@ -41,5 +41,6 @@ namespace Application_visa.Models
             using MySqlConnection connection = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;");
             return connection;
         }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Runtime.ConstrainedExecution;
 
 namespace Application_visa.Models
 {
@@ -26,7 +27,25 @@ namespace Application_visa.Models
             conn.Close();
             return agences;
         }
-       
+        public static Agence getAgence(int id)
+        {
+            MySqlConnection conn = connexion();
+            conn.Open();
+            using MySqlCommand command = conn.CreateCommand();
+            command.CommandText = "SELECT * from agence WHERE id=@id";
+            command.Parameters.Add(new MySqlParameter("@id",id));
+            Agence agence = new Agence();
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                agence.id = int.Parse(reader["id"].ToString());
+                agence.nom = reader["nom"].ToString();
+                agence.ville = reader["ville"].ToString();
+            }
+            conn.Close();
+            return agence;
+        }
+
     }
     
 }
