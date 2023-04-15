@@ -64,5 +64,39 @@ namespace Application_visa.Models
             cmd.ExecuteNonQuery();
             con.Close();
         }
+        public static List<assurance> GetAll(int id) 
+        {
+            MySqlConnection con = connexion();
+            con.Open();
+            Service ser = Service.getService("assurance");
+
+            String query = "SELECT * FROM files where id_service= @id and id_user= @idUser";
+            MySqlCommand cmd = new MySqlCommand(query, con);
+            cmd.Parameters.Add(new MySqlParameter("@id", ser.id));
+            cmd.Parameters.Add(new MySqlParameter("@idUser", id));
+            List<assurance> list = new List<assurance>();
+            MySqlDataReader rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                assurance app = new assurance();
+                app.id = int.Parse(rd["id"].ToString());
+                app.nom = rd["nom"].ToString();
+                app.prenom = rd["prenom"].ToString();
+                app.tele = rd["tele"].ToString();
+                app.cin = rd["cin"].ToString();
+                app.prix = float.Parse(rd["prix"].ToString());
+                app.charge = float.Parse(rd["charge"].ToString());
+                app.total = float.Parse(rd["total"].ToString());
+                app.scan = rd["scan"].ToString();
+                app.ami_khaled = Convert.ToBoolean(rd["ami_khalid"]);
+                app.date = (DateTime)rd["date"];
+                app.user = User.getUser(int.Parse(rd["id_user"].ToString()));
+                list.Add(app);
+            }
+            con.Close();
+            return list;
+
+
+        }
     }
 }

@@ -12,6 +12,5 @@
         private Fournisseur fournisseur { get; set;}
 
         private User agent { get; set;}
-
     }
 }
