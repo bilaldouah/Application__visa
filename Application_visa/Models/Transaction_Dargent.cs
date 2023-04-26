@@ -10,7 +10,7 @@ namespace Application_visa.Models
             Service sr = Service.getService("Transaction_Dargent");
             MySqlConnection con = connexion();
             con.Open();
-            String query = "INSERT INTO files (nom, prenom, tele,cin,prix,charge,total,scan,date,id_service) VALUES (@nom, @prenom, @tele,@cin,@prix,@charge,@total,@scan,Now(),@id_service)";
+            String query = "INSERT INTO files (nom, prenom, tele,cin,prix,charge,total,scan,date,id_service,id_user) VALUES (@nom, @prenom, @tele,@cin,@prix,@charge,@total,@scan,Now(),@id_service,@id_user)";
             MySqlCommand cmd = new MySqlCommand(query, con);
             cmd.Parameters.Add(new MySqlParameter("@nom", this.nom));
             cmd.Parameters.Add(new MySqlParameter("@prenom", this.prenom));
@@ -21,6 +21,7 @@ namespace Application_visa.Models
             cmd.Parameters.Add(new MySqlParameter("@total", this.total));
             cmd.Parameters.Add(new MySqlParameter("@scan", this.scan));
             cmd.Parameters.Add(new MySqlParameter("@id_service", sr.id));
+            cmd.Parameters.Add(new MySqlParameter("@id_user", this.user.id));
             cmd.ExecuteNonQuery();
             con.Close();
         }

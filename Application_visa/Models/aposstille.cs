@@ -1,6 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System.ComponentModel.DataAnnotations;
-
 namespace Application_visa.Models
 {
     public class aposstille : Files

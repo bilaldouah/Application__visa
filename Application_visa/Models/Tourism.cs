@@ -13,7 +13,7 @@ namespace Application_visa.Models
             Fournisseur f = Fournisseur.GetFournisseur("Tourism");
             MySqlConnection con = connexion();
             con.Open();
-            String query = "INSERT INTO files (nom, prenom, tele,cin,prix,charge,total,scan,date,id_service,ami_khalid,id_fourn1) VALUES (@nom, @prenom, @tele,@cin,@prix,@charge,@total,@scan,Now(),@id_service,@ami_khalid,@id_fourn1)";
+            String query = "INSERT INTO files (nom, prenom, tele,cin,prix,charge,total,scan,date,id_service,ami_khalid,id_fourn1,id_user) VALUES (@nom, @prenom, @tele,@cin,@prix,@charge,@total,@scan,Now(),@id_service,@ami_khalid,@id_fourn1,@id_user)";
             MySqlCommand cmd = new MySqlCommand(query, con);
             cmd.Parameters.Add(new MySqlParameter("@nom", this.nom));
             cmd.Parameters.Add(new MySqlParameter("@prenom", this.prenom));
@@ -26,6 +26,7 @@ namespace Application_visa.Models
             cmd.Parameters.Add(new MySqlParameter("@id_service",sr.id));
             cmd.Parameters.Add(new MySqlParameter("@ami_khalid", this.ami_khaled));
             cmd.Parameters.Add(new MySqlParameter("@id_fourn1",f.id));
+            cmd.Parameters.Add(new MySqlParameter("@id_user", this.user.id));
             cmd.ExecuteNonQuery();
             con.Close();
         }

@@ -22,8 +22,7 @@ namespace Application_visa.Models
             cmd.Parameters.Add(new MySqlParameter("@scan", this.scan));
             cmd.Parameters.Add(new MySqlParameter("@id_service",sr.id));
             cmd.Parameters.Add(new MySqlParameter("@ami_khalid", this.ami_khaled));
-            //cmd.Parameters.Add(new MySqlParameter("@id_user", HttpContext.Current.Session["userId"]));
-
+            cmd.Parameters.Add(new MySqlParameter("@id_user", this.user.id));
             cmd.ExecuteNonQuery();
             con.Close();
         }
