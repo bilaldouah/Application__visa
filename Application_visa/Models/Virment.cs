@@ -8,11 +8,11 @@ namespace Application_visa.Models
         public DateTime date { get; set; }
         public int montant { get; set; }
         public Boolean statut { get; set; }
-        public User user_receiver { get; set;}
-        public User user_sender { get; set;}
-        public string scan { get; set;}
-        public Fournisseur fournisseur { get; set;}
-        public User agent { get; set;}
+        public User user_receiver { get; set; }
+        public User user_sender { get; set; }
+        public string scan { get; set; }
+        public Fournisseur fournisseur { get; set; }
+        public User agent { get; set; }
 
         public void VirmentToUser(int id_sender)
         {
@@ -21,7 +21,7 @@ namespace Application_visa.Models
             String query = "INSERT INTO virment (date, montant, statut,id_user_sender,id_user_receiver) VALUES (Now(),@montant,FALSE,@sender,@reciver)";
             MySqlCommand cmd = new MySqlCommand(query, con);
             cmd.Parameters.Add(new MySqlParameter("@montant", this.montant));
-            cmd.Parameters.Add(new MySqlParameter("@sender",id_sender));
+            cmd.Parameters.Add(new MySqlParameter("@sender", id_sender));
             cmd.Parameters.Add(new MySqlParameter("@reciver", this.user_receiver.id));
 
             cmd.ExecuteNonQuery();

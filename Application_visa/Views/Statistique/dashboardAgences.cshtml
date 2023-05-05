@@ -138,8 +138,8 @@
             </div>
 
             <div class="d-flex   justify-content-around">
-                <div class="col-4  background" onclick="goToArchive()" id="chart3"></div>
-                <div class="col-4 background" onclick="goToArchive()" id="chart4"></div>
+                <div class="col-4  background" onclick="goToArchiveChart3()" id="chart3"></div>
+                <div class="col-4 background" onclick="goToArchiveChart4()" id="chart4"></div>
             </div>
         </div>
 
@@ -166,9 +166,9 @@
         var IdKh = amieKh[amieKh.selectedIndex].value;
         ///////////////////////////////////////////////////////
         const urlParams = new URLSearchParams(window.location.search);
-        const param1 = urlParams.get('agId');
+        const agenceId = urlParams.get('agId');
         /////////////////////////////////////////////////////////
-        window.location.href = "dashboardAgences?agId=" + param1 + "&serviceId=" + IdService +"&dateD=" + dateD + "&dateF=" + dateF + "&year=" + yearsV + "&Kh=" + IdKh;
+        window.location.href = "dashboardAgences?agId=" + agenceId + "&serviceId=" + IdService + "&dateD=" + dateD + "&dateF=" + dateF + "&year=" + yearsV + "&Kh=" + IdKh;
     }
     function goToArchive()
     {
@@ -188,9 +188,9 @@
         var IdKh = amieKh[amieKh.selectedIndex].value;
         ///////////////////////////////////////////////////////
         const urlParams = new URLSearchParams(window.location.search);
-        const param1 = urlParams.get('agId');
+        const agenceId = urlParams.get('agId');
         /////////////////////////////////////////////
-        window.location.href = "dashboardTable?serviceId=" + IdService + "&agenceId=" + param1 + "&dateD=" + dateD + "&dateF=" + dateF + "&year=" + yearsV + "&Kh=" + IdKh;
+        window.location.href = "dashboardTable?serviceId=" + IdService + "&agenceId=" + agenceId + "&dateD=" + dateD + "&dateF=" + dateF + "&year=" + yearsV + "&Kh=" + IdKh;
     }
 </script>      
 <script type ="text/javascript">
@@ -277,52 +277,12 @@
             columns: [['avance', @Model.nbrFilesAvance]]
         });
     }, 1000);
+    function goToArchiveChart3() {
 
 
-</script>
-<script>
+        window.location.href = "avanceChartAgence?serviceId=" + [@ViewBag.idS] + "&agenceId=" + [@ViewBag.idAgence] + "&dateD=" + [@ViewBag.dateD] + "&dateF=" + [@ViewBag.dateF] + "&year=" + [@ViewBag.year] + "&Kh=" + [@ViewBag.kh];
 
-    var chart = c3.generate({
-        bindto: "#chart1",
-        data: {
-            columns: [
-                ['files ajouter', 0]
-            ],
-            type: 'gauge',
-            onclick: function (d, i) { console.log("onclick", d, i); },
-            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-        },
-        gauge: {
-            //        label: {
-            //            format: function(value, ratio) {
-            //                return value;
-            //            },
-            //            show: false // to turn off the min/max labels.
-            //        },
-            //    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-            //    max: 100, // 100 is default
-            //    units: ' %',
-            //    width: 39 // for adjusting arc thickness
-        },
-        color: {
-            pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-            threshold: {
-                //            unit: 'value', // percentage is default
-                //            max: 200, // 100 is default
-                values: [30, 60, 90, 100]
-            }
-        },
-        size: {
-            height: 180
-        }
-    });
-    setTimeout(function () {
-        chart.load({
-            columns: [['files ajouter', @Model.countNbrFillesAdded]]
-        });
-    }, 1000);
-   
+    }
 
 </script>
 <script type="text/javascript">
@@ -408,4 +368,10 @@
             columns: [['files done', @Model.nbrFilesDone]]
         });
     }, 1000);
+    function goToArchiveChart4() {
+
+
+        window.location.href = "DoneChartAgence?serviceId=" + [@ViewBag.idS]  + "&agenceId=" + [@ViewBag.idAgence]+ "&dateD=" + [@ViewBag.dateD] + "&dateF=" + [@ViewBag.dateF] + "&year=" + [@ViewBag.year] + "&Kh=" + [@ViewBag.kh];
+       
+    }
 </script>

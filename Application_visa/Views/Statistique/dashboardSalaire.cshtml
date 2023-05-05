@@ -1,0 +1,178 @@
+﻿@model Application_visa.Models.Statistique
+@{
+    Layout = "";
+}
+
+@section Title{
+    <title>dashboard Salaire</title>
+}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>EmailCHIMP | Responsive Bootstrap 4 Admin Dashboard Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.10.1/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js" integrity="sha512-+IpCthlNahOuERYUSnKFjzjdKXIbJ/7Dd6xvUp+7bEw0Jp2dg6tluyxLs+zq9BMzZgrLv8886T4cBSqnKiVgUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" integrity="sha512-cznfNokevSG7QPA5dZepud8taylLdvgr0lDqw/FEZIhluFsSwyvS81CMnRdrNSKwbsmc43LtRd2/WMQV+Z85AQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+    <link rel="stylesheet" href="../assets/css/backend-plugin.min.css">
+    <link rel="stylesheet" href="../assets/css/backend.css?v=1.0.2">
+    <link rel="stylesheet" href="../assets/vendor/fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="../assets/vendor/remixicon/fonts/remixicon.css">
+    <link rel="stylesheet" href="../assets/vendor/icon/dripicons/dripicons.css">
+</head>
+<style>
+    .navbar {
+        background-color: #5d60b9 !important;
+    }
+
+</style>
+
+<body>
+
+    <div class="d-flex ">
+
+        <div class="col-2 m-0 p-0">
+            <div class="iq-sidebar  sidebar-default ">
+                <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
+                    <a href="~/backend/index.html" class="header-logo">
+                        <img src="~/assets/images/logo.png" class="img-fluid  light-logo" alt="logo"><h5 class="logo-title text-white ml-3 mt-1">EmailCHIMP</h5>
+                    </a>
+
+                    <div class="iq-menu-bt-sidebar ">
+                        <svg class="svg-icon feather feather-repeat wrapper-menu animated rotation" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="17 1 21 5 17 9"></polyline>
+                            <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                            <polyline points="7 23 3 19 7 15"></polyline>
+                            <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="data-scrollbar" data-scroll="1">
+
+                    <div class="p-3"></div>
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex flex-column col-10 p-0 ">
+            <nav class="navbar navbar-expand-sm bg-info ml-4 navbar-dark ">
+                <ul class="navbar-nav ">
+                    <li class="nav-item ml-5 p-2">
+                        <label>  Mois</label>
+                        <select class="custom-select" id="months" onchange="ListChanged()">
+                            @{
+                                var month = ViewBag.dateMonth;
+                            }
+                            <option class="text-center" selected="@(month == -1)" value="-1">tous</option>
+                            <option class="text-center" selected="@(month == 1)" value="1">Janvier</option>
+                            <option class="text-center" selected="@(month == 2)" value="2">Février</option>
+                            <option class="text-center" selected="@(month == 3)" value="3">Mars</option>
+                            <option class="text-center" selected="@(month == 4)"  value="4">Avril</option>
+                            <option class="text-center" selected="@(month == 5)"  value="5">Mai</option>
+                            <option class="text-center" selected="@(month == 6)"  value="6">Juin</option>
+                            <option class="text-center" selected="@(month == 7)"  value="7">Juillet</option>
+                            <option class="text-center" selected="@(month == 8)"  value="8">Août</option>
+                            <option class="text-center" selected="@(month == 9)"  value="9">Septembre</option>
+                            <option class="text-center" selected="@(month == 10)"  value="10">Octobre</option>
+                            <option class="text-center" selected="@(month == 11)"  value="11">Novembre</option>
+                            <option class="text-center" selected="@(month == 12)"  value="12">Décembre</option>
+                       </select>
+                    </li>
+                    <li class="nav-item p-2">
+                        <label>  Années</label>
+                        <select class="custom-select" asp-for="getYears" id="years" onchange="ListChanged()">
+                            <option class="text-center" value="-1">tous</option>
+                            @foreach (dateRepository years in Model.years)
+                            {
+                                if (years.getAllyears == @ViewBag.year)
+                                {
+                                    <option selected class="text-center" value="@years.getAllyears">@years.getAllyears</option>
+                                }
+                                else
+                                {
+                                    <option class="text-center" value="@years.getAllyears">@years.getAllyears</option>
+                                }
+
+                            }
+                        </select>
+                    </li>
+                    <li class="nav-item p-2">
+                        <label>  agence</label>
+                        <select class="custom-select" asp-for="user.agence.id" id="agence" onchange="ListChanged()">
+                            <option class="text-center" value="-1">tous</option>
+                            @foreach (Agence agences in Model.agences)
+                            {
+                                if (agences.id == @ViewBag.idA)
+                                {
+                                    <option selected class="text-center" value="@agences.id">@agences.nom</option>
+                                }
+                                else
+                                {
+                                    <option class="text-center" value="@agences.id">@agences.nom</option>
+                                }
+
+
+                            }
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+            <div class="d-flex justify-content-center pt-4 m-5">
+
+                <table id="example" class="table table-striped table-bordered mw-100 police " style="width:100%">
+                    <thead>
+                        <tr>
+                            <td class="text-center" colspan="3">date</td>
+                            <td class="text-center" colspan="3">chiffre affaire</td>
+                            <td class="text-center" colspan="3">net</td>
+                           
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Statistique s in Model.listChiffreAffaireAndNet)
+                        {                 
+                        <tr>
+                                <td class="text-center" colspan="3">@s.date </td>
+                                <td class="text-center" colspan="3">@s.nbrSalaireChiffreAffaire Dh</td>
+                                <td class="text-center" colspan="3">@s.nbrSalaireNet Dh</td>
+                            </tr>
+                        }
+                        <tr>
+                             <td class="text-center" colspan="3"></td>
+                            <td class="text-center" colspan="3">total  @Model.objetTotal.totalCh Dh</td>
+                    
+                            <td class="text-center" colspan="3">total  @Model.objetTotal.totalNet Dh</td>
+                       </tr>
+                    </tbody>
+
+                </table>
+                </div>
+                </div>
+                </div>
+
+</body>
+<script type="text/javascript">
+
+    function ListChanged() {
+        var agence = document.getElementById('agence');
+        var IdAgence = agence[agence.selectedIndex].value;
+        /////////////////////////////////////////////////////////
+ 
+        var months = document.getElementById("months");
+        var monthValue = months.value;
+        /////////////////////////////////////////////////////////
+        var years = document.getElementById('years');
+        var yearsV = years[years.selectedIndex].value;
+
+        window.location.href = "dashboardSalaire?month=" + monthValue + "&year=" + yearsV + "&agenceId=" + IdAgence;
+    }
+   </script>
+
+
