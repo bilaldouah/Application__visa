@@ -1,0 +1,40 @@
+﻿@section Title{
+    <title>Virement_Employe</title>
+}
+    @model Application_visa.Models.Virment
+
+
+    <div class="col-12">
+        <h2 class="mb-2">Virement</h2>
+        <p>Verser a un Employe</p>
+        <form method="post" action="#" enctype="multipart/form-data">
+            <div class="row justify-content-center col-12">
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Montant</label>
+                        <input class="form-control" type="text" asp-for="montant" placeholder=" " required>
+                        <span asp-validation-for="montant"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Employe</label>
+                        <select asp-for="user_receiver.id" required class="selectDrop">
+                        @foreach (User user in ViewData["Users"] as List<User>)
+                        {
+                            <option value="@user.id">@user.login</option>
+                        }
+                       </select>
+                        <span asp-validation-for="prenom"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+            </div>
+        </form>
+    </div>
+

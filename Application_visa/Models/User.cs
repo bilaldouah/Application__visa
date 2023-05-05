@@ -17,6 +17,7 @@ namespace Application_visa.Models
         public Role role { get; set; }
         [Required(ErrorMessage = "l'agence est obligatoire")]
         public Agence agence { get; set; }
+        public int idagence { get; set; }
 
         public List<Application_visa.Models.Role> roles { get; set; }
         public List<Application_visa.Models.Agence> agences { get; set; }
@@ -103,6 +104,7 @@ namespace Application_visa.Models
                     User user = new User();
                     user.id= int.Parse(reader["id"].ToString());
                     user.login= reader["login"].ToString();
+                    user.idagence= int.Parse(reader["id_agence"].ToString());
                     users.Add(user);
                 }
             }
