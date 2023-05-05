@@ -1,0 +1,156 @@
+﻿@model Application_visa.Models.Statistique
+@{
+    Layout = "";
+}
+
+@section Title{
+    <title>dashboard Fournisseur</title>
+}
+ <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>EmailCHIMP | Responsive Bootstrap 4 Admin Dashboard Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.10.1/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js" integrity="sha512-+IpCthlNahOuERYUSnKFjzjdKXIbJ/7Dd6xvUp+7bEw0Jp2dg6tluyxLs+zq9BMzZgrLv8886T4cBSqnKiVgUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" integrity="sha512-cznfNokevSG7QPA5dZepud8taylLdvgr0lDqw/FEZIhluFsSwyvS81CMnRdrNSKwbsmc43LtRd2/WMQV+Z85AQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <!-- Favicon -->
+      <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+      <link rel="stylesheet" href="../assets/css/backend-plugin.min.css">
+      <link rel="stylesheet" href="../assets/css/backend.css?v=1.0.2">
+      <link rel="stylesheet" href="../assets/vendor/fortawesome/fontawesome-free/css/all.min.css">
+      <link rel="stylesheet" href="../assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+      <link rel="stylesheet" href="../assets/vendor/remixicon/fonts/remixicon.css">
+      <link rel="stylesheet" href="../assets/vendor/icon/dripicons/dripicons.css">
+  </head>
+  <style>
+    .background {
+        background-color: antiquewhite;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+  </style>
+
+    <body>
+  
+        <div class="d-flex ">
+               
+                    <div class="col-2 m-0 p-0">
+                    <div class="iq-sidebar  sidebar-default ">
+                        <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
+                            <a href="~/backend/index.html" class="header-logo">
+                                <img src="~/assets/images/logo.png" class="img-fluid  light-logo" alt="logo"><h5 class="logo-title text-white ml-3 mt-1">EmailCHIMP</h5>
+                            </a>
+
+                            <div class="iq-menu-bt-sidebar ">
+                                <svg class="svg-icon feather feather-repeat wrapper-menu animated rotation" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="17 1 21 5 17 9"></polyline>
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                                    <polyline points="7 23 3 19 7 15"></polyline>
+                                    <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="data-scrollbar" data-scroll="1">
+                           
+                            <div class="p-3"></div>
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>   
+                        <div class="d-flex flex-column col-10 p-0 ">
+                             <nav class="navbar navbar-expand-sm bg-info navbar-dark ">
+            <ul class="navbar-nav ">                        
+                <li class="nav-item ml-5 p-2">
+                        <label>  de</label>
+                         <input class="custom-select" type="date" value="@ViewBag.dateD" id="dateD" onchange="ListChanged()" />
+                </li>
+                    <li class="nav-item p-2">
+                        <label>à</label>
+                          <input class="custom-select" type="date" value="@ViewBag.dateF" id="dateF" onchange="ListChanged()" />
+                </li>
+                    <li class="nav-item p-2">
+                        <label>  Années</label>
+                        <select class="custom-select" asp-for="getYears" id="years" onchange="ListChanged()">
+                            <option class="text-center" value="-1">tous</option>
+                            @foreach (dateRepository years in Model.years)
+                        {
+                                if (years.getAllyears == @ViewBag.year)
+                                {
+                                    <option selected class="text-center" value="@years.getAllyears">@years.getAllyears</option>
+                                }
+                                else
+                                {
+                                    <option class="text-center" value="@years.getAllyears">@years.getAllyears</option>
+                                }
+
+                        }
+                    </select>
+                </li>                  
+            </ul>
+    </nav>    
+            <div class="d-flex justify-content-center background pt-4 m-5">
+
+                <div class="col-10 background" onclick="goToArchive()" id="chart5"></div>
+
+            </div>
+          
+            </div>
+
+                        </div>     
+         
+    </body>
+<script type="text/javascript">
+
+    function ListChanged() {
+        var dateDebut = document.getElementById("dateD");
+        var dateD = dateDebut.value;
+        /////////////////////////////////////////////////////////
+        var dateFin = document.getElementById("dateF");
+        var dateF = dateFin.value;
+        /////////////////////////////////////////////////////////
+        var years = document.getElementById('years');
+        var yearsV = years[years.selectedIndex].value;
+
+        window.location.href = "dashboardFournisseur?dateD=" + dateD + "&dateF=" + dateF + "&year=" + yearsV;
+    }
+</script>
+
+<script type="text/javascript">
+    var chart5 = c3.generate({
+        bindto: "#chart5",
+        data: {
+            columns: [
+    @for (int i = 0; i < Model.fournisseureName.Count; i++)
+    {
+        @:['@Model.fournisseureName[i].nom', 0],
+
+    }
+                    ],
+            type: 'bar'
+        },
+        bar: {
+            width: {
+                ratio: 0.5 // this makes bar width 50% of length between ticks
+            }
+            // or
+            //width: 100 // this makes bar width 100px
+        }
+    });
+    setTimeout(function () {
+        chart5.load({
+            columns: [
+    @for (int i = 0; i < Model.fournisseureName.Count; i++)
+    {
+        @:['@Model.fournisseureName[i].nom', @Model.countSumFourniseurs[i].nbrSalaireFour],
+    }
+                    ]
+        });
+    }, 1000);
+</script>

@@ -160,8 +160,8 @@
                 </div>
 
                             <div class="d-flex   justify-content-around">
-                                        <div class="col-4  background" onclick="goToArchive()" id="chart3"></div>
-                                        <div class="col-4 background" onclick="goToArchive()" id="chart4"></div>
+                                        <div class="col-4  background" onclick="goToArchiveChart3()" id="chart3"></div>
+                             <div class="col-4 background" onclick="goToArchiveChart4()" id="chart4"></div>
                
                              </div>
             <div class="d-flex justify-content-center background pt-4 m-5">
@@ -220,41 +220,8 @@
 
         window.location.href = "dashboardTable?serviceId=" + IdService + "&agenceId=" + IdAgence + "&dateD=" + dateD + "&dateF=" + dateF + "&year=" + yearsV + "&Kh=" + IdKh;
     }
-</script>   
-<script type="text/javascript">
-    var chart5 = c3.generate({
-        bindto: "#chart5",
-        data: {
-            columns: [
-    @for (int i=0;i<Model.fournisseureName.Count;i++)
-    {
-        @:['@Model.fournisseureName[i].nom', 0],
 
-    }
-                ],
-            type: 'bar'
-        },
-        bar: {
-            width: {
-                ratio: 0.5 // this makes bar width 50% of length between ticks
-            }
-            // or
-            //width: 100 // this makes bar width 100px
-        }
-    });
-    setTimeout(function () {
-        chart5.load({
-            columns: [
-    @for (int i=0;i<Model.fournisseureName.Count;i++)
-    {
-        @:['@Model.fournisseureName[i].nom', @Model.countSumFourniseurs[i].nbrSalaireFour],
-    }
-                ]
-        });
-    }, 1000);
-</script>
-
-
+    </script>
 <script type ="text/javascript">
     var chart2 = c3.generate({
         bindto: "#chart2",
@@ -340,7 +307,11 @@
         });
     }, 1000);
 
+    function goToArchiveChart3() {
 
+
+        window.location.href = "detailChart3?serviceId=" + [@ViewBag.idS] + "&agenceId=" + [@ViewBag.idA] + "&dateD=" + [@ViewBag.dateD] + "&dateF=" + [@ViewBag.dateF] + "&year=" + [@ViewBag.year] + "&Kh=" + [@ViewBag.kh];
+    }
 </script>
 <script>
 
@@ -470,4 +441,9 @@
             columns: [['files done', @Model.nbrFilesDone]]
         });
     }, 1000);
+    function goToArchiveChart4() {
+
+
+        window.location.href = "detailChart4?serviceId=" + [@ViewBag.idS] + "&agenceId=" + [@ViewBag.idA] + "&dateD=" + [@ViewBag.dateD] + "&dateF=" + [@ViewBag.dateF] + "&year=" + [@ViewBag.year] + "&Kh=" + [@ViewBag.kh];
+    }
 </script>
