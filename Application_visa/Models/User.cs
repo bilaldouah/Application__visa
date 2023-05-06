@@ -13,14 +13,17 @@ namespace Application_visa.Models
         public string login { get; set; }
         [Required(ErrorMessage = "le mot de pass est obligatoire")]
         public string pwd { get; set; }
+        [Required(ErrorMessage = "password Confirmation est obligatoire")]
+        public string passwordConfirm { get; set; }
         [Required(ErrorMessage = "le role est obligatoire")]
-        public Role role { get; set; }
+        public Role  role { get; set; }
         [Required(ErrorMessage = "l'agence est obligatoire")]
-        public Agence agence { get; set; }
+        public Agence  agence { get; set; }
 
-        public List<Application_visa.Models.Role> roles { get; set; }
-        public List<Application_visa.Models.Agence> agences { get; set; }
+       public List<Application_visa.Models.Role> ? roles { get; set; }
+        public List<Application_visa.Models.Agence> ? agences { get; set; }
      
+
      public string hashPassword(string password)
         {
             byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
