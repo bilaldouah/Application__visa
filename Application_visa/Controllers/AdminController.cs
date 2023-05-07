@@ -36,11 +36,15 @@ namespace Application_visa.Controllers
         
             if (user.login!=null && user.pwd!=null && user.passwordConfirm!=null && user.role.id!=null && user.agence.id!=null) 
             {
+                if (user.searchUser(user.login) == true)
+                {
+                    ViewBag.sameLoginError = "ce login est déja utilisé, veuillez choisir une autre login";
+                }
 
                 if (user.passwordConfirm == user.pwd && user.searchUser(user.login) == false)
                 {
                     user.addUtilisateure();
-                    return RedirectToAction("addUser");
+                    ViewBag.successAddition = "votre opération s'étant déroulée avec succès";                 
                 }
                
                 if (user.passwordConfirm != user.pwd)
@@ -50,6 +54,7 @@ namespace Application_visa.Controllers
 
                 
             }
+           
            
              if (user.login == null)
             {
