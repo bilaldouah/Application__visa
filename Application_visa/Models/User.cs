@@ -13,20 +13,28 @@ namespace Application_visa.Models
         public string login { get; set; }
         [Required(ErrorMessage = "le mot de pass est obligatoire")]
         public string pwd { get; set; }
+        [Required(ErrorMessage = "password Confirmation est obligatoire")]
+        public string passwordConfirm { get; set; }
         [Required(ErrorMessage = "le role est obligatoire")]
-        public Role role { get; set; }
+        public Role  role { get; set; }
         [Required(ErrorMessage = "l'agence est obligatoire")]
-        public Agence agence { get; set; }
+        public Agence  agence { get; set; }
 
-        public List<Application_visa.Models.Role> roles { get; set; }
-        public List<Application_visa.Models.Agence> agences { get; set; }
+       public List<Application_visa.Models.Role> ? roles { get; set; }
+        public List<Application_visa.Models.Agence> ? agences { get; set; }
      
+
      public string hashPassword(string password)
         {
-            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-            SHA256 sha256 = SHA256.Create();
-            byte[] hashBytes = sha256.ComputeHash(passwordBytes);
-            return Convert.ToBase64String(hashBytes);
+
+            if (password != null)
+            {
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                SHA256 sha256 = SHA256.Create();
+                byte[] hashBytes = sha256.ComputeHash(passwordBytes);
+                return Convert.ToBase64String(hashBytes);
+            }
+            return null;
         }
         public void addUtilisateure()
         {          
@@ -71,6 +79,7 @@ namespace Application_visa.Models
         }
         public Boolean searchUser(String login)
         {
+            Boolean result = false;
             MySqlConnection conn = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;"); ;
             conn.Open();
             using MySqlCommand command = conn.CreateCommand();
@@ -81,11 +90,15 @@ namespace Application_visa.Models
             {
                 while (reader.Read())
                 {
-                    return true;
+                    result= true;
                 }            
             }
+            else
+            {
+                result= false;
+            }
             conn.Close();
-            return false;
+            return result;
         }
         public List<User> getUsersByAgence(int idAg)
         {
@@ -93,7 +106,7 @@ namespace Application_visa.Models
             MySqlConnection conn = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;"); ;
             conn.Open();
             using MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT * from user where id_agence=@idAgence";
+            command.CommandText = "SELECT * from user where id_agence=@idAgence and id_role between 2 and 3";
             command.Parameters.Add(new MySqlParameter("@idAgence", idAg));
             MySqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)

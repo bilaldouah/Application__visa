@@ -1,7 +1,7 @@
 ﻿
 @model Application_visa.Models.Statistique
 @section Title{
-    <title>Statistique</title>
+            <title>detail chart 3</title>
 }
 
 <body onload="loaded()">
@@ -17,34 +17,34 @@
                             {
                                 if (services.id == @ViewBag.idS)
                                 {
-                                    <option class="text-center" selected value="@services.id">@services.nom</option>
+                                            <option class="text-center" selected value="@services.id">@services.nom</option>
                                 }
                                 else
                                 {
-                                    <option class="text-center" value="@services.id">@services.nom</option>
+                                            <option class="text-center" value="@services.id">@services.nom</option>
                                 }
 
                             }
                         </select>
                     </li>
-                    
+
                           <li class="nav-item p-2">
                         <label>  agence</label>
                         <select class="custom-select" asp-for="user.agence.id" id="agence" onchange="ListChanged()">
             <option class="text-center" value="-1">tous</option>
-            @foreach (Agence agences in Model.agences)
-            {
-                if (agences.id == @ViewBag.idA)
-                {
-                    <option selected class="text-center" value="@agences.id">@agences.nom</option>
-                }
-                else
-                {
-                    <option class="text-center" value="@agences.id">@agences.nom</option>
-                }
+                            @foreach (Agence agences in Model.agences)
+                            {
+                                if (agences.id == @ViewBag.idA)
+                                {
+                            <option selected class="text-center" value="@agences.id">@agences.nom</option>
+                                }
+                                else
+                                {
+                            <option class="text-center" value="@agences.id">@agences.nom</option>
+                                }
 
 
-            }
+                            }
         </select>
                     </li>
 
@@ -60,27 +60,27 @@
                         <label>  annees</label>
                         <select class="custom-select" asp-for="getYears" id="years" onchange="ListChanged()">
             <option class="text-center" value="-1">tous</option>
-            @foreach (dateRepository years in Model.years)
-            {
-                if (years.getAllyears == @ViewBag.year)
-                {
-                    <option selected class="text-center" value="@years.getAllyears">@years.getAllyears</option>
-                }
-                else
-                {
-                    <option class="text-center" value="@years.getAllyears">@years.getAllyears</option>
-                }
+                            @foreach (dateRepository years in Model.years)
+                            {
+                                if (years.getAllyears == @ViewBag.year)
+                                {
+                            <option selected class="text-center" value="@years.getAllyears">@years.getAllyears</option>
+                                }
+                                else
+                                {
+                            <option class="text-center" value="@years.getAllyears">@years.getAllyears</option>
+                                }
 
-            }
+                            }
         </select>
                     </li>
 
                     <li class="nav-item p-2">
                         <label>  amie khaled</label>
                         <select class="custom-select" id="amisKhalidList" onchange="ListChanged()">
-    @{
-        var kh = ViewBag.kh as string;
-    }
+                            @{
+                                var kh = ViewBag.kh as string;
+                            }
             <option class="text-center" value="" selected="@(kh == null)">tous</option>
             <option class="text-center" value="true" selected="@(kh == "true")">amis khalid</option>
             <option class="text-center" value="false" selected="@(kh == "false")">amis non khalid</option>
@@ -88,7 +88,7 @@
                     </li>
                 </ul>
             </nav>
-            
+
         </div>
     </div>
 
@@ -107,20 +107,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(Statistique s in Model.files)
-        {      
-        <tr>        
-            <td class="text-center">@s.nom</td>
-            <td class="text-center">@s.prenom</td>
-            <td class="text-center">@s.tele</td>
-            <td class="text-center">@s.prix</td>
-            <td class="text-center">@s.charge</td>
-            <td class="text-center">@s.total</td>
-            <td class="text-center">@s.service.nom</td>
-            <td class="text-center">@s.user.agence.nom</td>
-            <td class="text-center">@s.date</td>
-        </tr>
-          }
+            @foreach (Statistique s in Model.files)
+            {      
+            <tr>        
+                <td class="text-center">@s.nom</td>
+                <td class="text-center">@s.prenom</td>
+                <td class="text-center">@s.tele</td>
+                <td class="text-center">@s.prix</td>
+                <td class="text-center">@s.charge</td>
+                <td class="text-center">@s.total</td>
+                <td class="text-center">@s.service.nom</td>
+                <td class="text-center">@s.user.agence.nom</td>
+                <td class="text-center">@s.date</td>
+            </tr>
+            }
     </tbody>
 
 </table>
@@ -136,9 +136,9 @@
 </script>
 
 <script type="text/javascript">
-   
+
  function ListChanged() {
-      
+
         var service = document.getElementById('service');
         var IdService = service[service.selectedIndex].value;
         ////////////////////////////////////////////////////////
@@ -156,11 +156,11 @@
         /////////////////////////////////////////////////////////
         var amieKh = document.getElementById('amisKhalidList');
         var IdKh = amieKh[amieKh.selectedIndex].value;
-       
+
         window.location.href = "dashboardTable?serviceId=" + IdService + "&agenceId=" + IdAgence + "&dateD=" + dateD + "&dateF=" + dateF + "&year=" + yearsV + "&Kh=" + IdKh;
 
 
     }
-    
-  
+
+
 </script>

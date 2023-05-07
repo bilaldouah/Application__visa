@@ -35,6 +35,7 @@
                                             <div class="form-group">
                                                 <label class="mb-0">Login</label>
                                                 <input class="form-control" asp-for="login" type="text" placeholder=" ">
+                                            <span class="text-warning">@ViewBag.loginError</span>
                                             </div>
 
                                         </div>
@@ -42,6 +43,8 @@
                                             <div class="form-group">
                                                 <label class="mb-0">Password</label>
                                                 <input class="form-control" asp-for="pwd" type="password" placeholder=" ">
+                                            <span class="text-warning">@ViewBag.pwdError</span>
+                                            <span class="text-warning">@ViewBag.wrongData</span>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">

@@ -1,0 +1,165 @@
+﻿@model Application_visa.Models.Statistique
+@section Title{
+        <title>detail chart 4</title>
+}
+
+<body onload="loaded()">
+    <div>
+        <div class="d-flex flex-column col-12 p-0 ">
+            <nav class="navbar navbar-expand-sm  navbar-dark ">
+                <ul class="navbar-nav ">
+                    <li class="nav-item ml-5 p-2">
+                        <label>  service</label>
+                        <select class="custom-select" asp-for="service.id" id="service" onchange="ListChanged()">
+                            <option class="text-center" value="-1">tous</option>
+                            @foreach (Service services in Model.services)
+                            {
+                                if (services.id == @ViewBag.idS)
+                                {
+                                            <option class="text-center" selected value="@services.id">@services.nom</option>
+                                }
+                                else
+                                {
+                                            <option class="text-center" value="@services.id">@services.nom</option>
+                                }
+
+                            }
+                        </select>
+                    </li>
+
+                    <li class="nav-item p-2">
+                        <label>  agence</label>
+                        <select class="custom-select" asp-for="user.agence.id" id="agence" onchange="ListChanged()">
+                            <option class="text-center" value="-1">tous</option>
+                            @foreach (Agence agences in Model.agences)
+                            {
+                                if (agences.id == @ViewBag.idA)
+                                {
+                                            <option selected class="text-center" value="@agences.id">@agences.nom</option>
+                                }
+                                else
+                                {
+                                            <option class="text-center" value="@agences.id">@agences.nom</option>
+                                }
+
+
+                            }
+                        </select>
+                    </li>
+
+                    <li class="nav-item p-2">
+                        <label>  de</label>
+                        <input class="custom-select" type="date" value="@ViewBag.dateD" id="dateD" onchange="ListChanged()" />
+                    </li>
+                    <li class="nav-item p-2">
+                        <label>  a</label>
+                        <input class="custom-select" type="date" value="@ViewBag.dateF" id="dateF" onchange="ListChanged()" />
+                    </li>
+                    <li class="nav-item p-2">
+                        <label>  annees</label>
+                        <select class="custom-select" asp-for="getYears" id="years" onchange="ListChanged()">
+                            <option class="text-center" value="-1">tous</option>
+                            @foreach (dateRepository years in Model.years)
+                            {
+                                if (years.getAllyears == @ViewBag.year)
+                                {
+                                            <option selected class="text-center" value="@years.getAllyears">@years.getAllyears</option>
+                                }
+                                else
+                                {
+                                            <option class="text-center" value="@years.getAllyears">@years.getAllyears</option>
+                                }
+
+                            }
+                        </select>
+                    </li>
+
+                    <li class="nav-item p-2">
+                        <label>  amie khaled</label>
+                        <select class="custom-select" id="amisKhalidList" onchange="ListChanged()">
+                            @{
+                                var kh = ViewBag.kh as string;
+                            }
+                            <option class="text-center" value="" selected="@(kh == null)">tous</option>
+                            <option class="text-center" value="true" selected="@(kh == "true")">amis khalid</option>
+                            <option class="text-center" value="false" selected="@(kh == "false")">amis non khalid</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+
+    <table id="example" class="table table-striped table-bordered mw-100 police " style="width:100%">
+        <thead>
+            <tr>
+                <td class="text-center">nom</td>
+                <td class="text-center">prenom</td>
+                <td class="text-center">tele</td>
+                <td class="text-center">prix</td>
+                <td class="text-center"> charge</td>
+                <td class="text-center">total</td>
+                <td class="text-center">service</td>
+                <td class="text-center">agence</td>
+                <td class="text-center">date</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Statistique s in Model.files)
+            {
+                    <tr>
+                        <td class="text-center">@s.nom</td>
+                        <td class="text-center">@s.prenom</td>
+                        <td class="text-center">@s.tele</td>
+                        <td class="text-center">@s.prix</td>
+                        <td class="text-center">@s.charge</td>
+                        <td class="text-center">@s.total</td>
+                        <td class="text-center">@s.service.nom</td>
+                        <td class="text-center">@s.user.agence.nom</td>
+                        <td class="text-center">@s.date</td>
+                    </tr>
+            }
+        </tbody>
+
+    </table>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+<script type="text/javascript">
+
+    function ListChanged() {
+
+        var service = document.getElementById('service');
+        var IdService = service[service.selectedIndex].value;
+        ////////////////////////////////////////////////////////
+        var agence = document.getElementById('agence');
+        var IdAgence = agence[agence.selectedIndex].value;
+        /////////////////////////////////////////////////////////
+        var dateDebut = document.getElementById("dateD");
+        var dateD = dateDebut.value;
+        /////////////////////////////////////////////////////////
+        var dateFin = document.getElementById("dateF");
+        var dateF = dateFin.value;
+        /////////////////////////////////////////////////////////
+        var years = document.getElementById('years');
+        var yearsV = years[years.selectedIndex].value;
+        /////////////////////////////////////////////////////////
+        var amieKh = document.getElementById('amisKhalidList');
+        var IdKh = amieKh[amieKh.selectedIndex].value;
+
+        window.location.href = "dashboardTable?serviceId=" + IdService + "&agenceId=" + IdAgence + "&dateD=" + dateD + "&dateF=" + dateF + "&year=" + yearsV + "&Kh=" + IdKh;
+
+
+    }
+
+
+</script>
