@@ -131,6 +131,27 @@ namespace Application_visa.Models
             conn.Close();
             return users;
         }
+
+        public static User getUsersById_(int empId)
+        {
+            User user = new User();
+            MySqlConnection conn = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;"); ;
+            conn.Open();
+            using MySqlCommand command = conn.CreateCommand();
+            command.CommandText = "SELECT * from user where id=@idEmp";
+            command.Parameters.Add(new MySqlParameter("@idEmp", empId));
+            MySqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    user.id = int.Parse(reader["id"].ToString());
+                    user.login = reader["login"].ToString();
+                }
+            }
+            conn.Close();
+            return user;
+        }
         public static User getUser(int empId)
         {
             MySqlConnection conn = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;"); ;
