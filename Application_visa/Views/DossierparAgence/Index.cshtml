@@ -16,11 +16,12 @@
             <td class="text-center">date</td>
             <td class="text-center">Amie de Khalid</td>
             <td class="text-center">Document</td>
+            <td class="text-center">Agence</td>
             <td>Action</td>
         </tr>
     </thead>
     <tbody>
-        @foreach (aposstille s in ViewData["apostille"] as List<aposstille>)
+        @foreach (Tourism s in ViewData["tourism"] as List<Tourism>)
         {
             <tr>
                 <td class="text-center">@s.nom</td>
@@ -30,7 +31,6 @@
                 <td class="text-center">@s.prix</td>
                 <td class="text-center">@s.charge</td>
                 <td class="text-center">@s.total</td>
-                <td class="text-center">@s.destination</td>
                 <td class="text-center">@s.date</td>
                 @if (s.ami_khaled == true)
                 {
@@ -42,6 +42,7 @@
                     <td class="text-center">NON</td>
                 }
                 <td class="text-center"><a href="~/scans/@s.scan">Scan du dossier</a></td>
+                <td class="text-center">@s.agence.ville</td>
             </tr>
         }
     </tbody>

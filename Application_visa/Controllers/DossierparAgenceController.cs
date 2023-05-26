@@ -8,7 +8,7 @@ namespace Application_visa.Controllers
         public IActionResult Index()
         {
             User user = Models.User.getUsersById_((int)HttpContext.Session.GetInt32("userId"));
-            ViewData["Appostille"] = aposstille.getAllbyAgence((int)user.agence.id); 
+            ViewData["tourism"] = Tourism.getAllbyAgence((int)user.agence.id); 
             return View();
         }
     }

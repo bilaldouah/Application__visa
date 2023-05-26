@@ -5,7 +5,7 @@ namespace Application_visa.Models
 {
     public class Tourism : Files
     {
-        private Agence agence { get; set;}
+        public Agence agence { get; set;}
 
      public void Add()
         {
@@ -77,6 +77,35 @@ namespace Application_visa.Models
             MySqlCommand cmd = new MySqlCommand(query, con);
             cmd.Parameters.Add(new MySqlParameter("@id", ser.id));
             cmd.Parameters.Add(new MySqlParameter("@idUser", id));
+            List<Tourism> list = new List<Tourism>();
+            MySqlDataReader rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                Tourism app = new Tourism();
+                app.id = int.Parse(rd["id"].ToString());
+                app.nom = rd["nom"].ToString();
+                app.prenom = rd["prenom"].ToString();
+                app.tele = rd["tele"].ToString();
+                app.cin = rd["cin"].ToString();
+                app.prix = float.Parse(rd["prix"].ToString());
+                app.charge = float.Parse(rd["charge"].ToString());
+                app.total = float.Parse(rd["total"].ToString());
+                app.scan = rd["scan"].ToString();
+                app.ami_khaled = Convert.ToBoolean(rd["ami_khalid"]);
+                app.date = (DateTime)rd["date"];
+                app.user = User.getUser(int.Parse(rd["id_user"].ToString()));
+                list.Add(app);
+            }
+            con.Close();
+            return list;
+        }
+        public static List<Tourism> getAllbyAgence(int id)
+        {   Agence agence=Agence.getAgence(id);
+            MySqlConnection con = connexion();
+            con.Open();
+            String query = "SELECT * FROM files    where id_agence =@id";
+            MySqlCommand cmd = new MySqlCommand(query, con);
+            cmd.Parameters.Add(new MySqlParameter("@id",agence.id));
             List<Tourism> list = new List<Tourism>();
             MySqlDataReader rd = cmd.ExecuteReader();
             while (rd.Read())
