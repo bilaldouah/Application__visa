@@ -1,0 +1,111 @@
+﻿@{
+    Layout = "";
+}
+@section Title{
+    <title>dashboard</title>
+}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>EmailCHIMP | Responsive Bootstrap 4 Admin Dashboard Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.10.1/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js" integrity="sha512-+IpCthlNahOuERYUSnKFjzjdKXIbJ/7Dd6xvUp+7bEw0Jp2dg6tluyxLs+zq9BMzZgrLv8886T4cBSqnKiVgUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" integrity="sha512-cznfNokevSG7QPA5dZepud8taylLdvgr0lDqw/FEZIhluFsSwyvS81CMnRdrNSKwbsmc43LtRd2/WMQV+Z85AQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+    <link rel="stylesheet" href="../assets/css/backend-plugin.min.css">
+    <link rel="stylesheet" href="../assets/css/backend.css?v=1.0.2">
+    <link rel="stylesheet" href="../assets/vendor/fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="../assets/vendor/remixicon/fonts/remixicon.css">
+    <link rel="stylesheet" href="../assets/vendor/icon/dripicons/dripicons.css">
+</head>
+<style>
+    .background {
+        background-color: #ececec;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+</style>
+
+<body>
+
+    <div class="d-flex ">
+
+        <div class="col-2 m-0 p-0">
+            <div class="iq-sidebar  sidebar-default ">
+                <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
+                    <a href="~/backend/index.html" class="header-logo">
+                        <img src="~/assets/images/logo.png" class="img-fluid  light-logo" alt="logo"><h5 class="logo-title text-white ml-3 mt-1">EmailCHIMP</h5>
+                    </a>
+
+                    <div class="iq-menu-bt-sidebar ">
+                        <svg class="svg-icon feather feather-repeat wrapper-menu animated rotation" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="17 1 21 5 17 9"></polyline>
+                            <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                            <polyline points="7 23 3 19 7 15"></polyline>
+                            <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="data-scrollbar" data-scroll="1">
+                    <nav class="iq-sidebar-menu">
+                        <ul id="iq-sidebar-toggle" class="iq-menu">
+                            <p class=" text-center text-warning">LES DASHBOARD</p>
+                            
+                                <li class="active">
+                                    <a href="~/Statistique/dashboard?serviceId=-1&agenceId=-1&dateD=&dateF=&year=-1&Kh=" class="svg-icon">
+                                        <img src="~/assets/images/statics.png" width="15%">
+                                        <span class="ml-3">statistic</span>
+                                    </a>
+                                </li>
+                                 <li class="active">
+                                <a href="~/Statistique/dashboardSalaire?month=-1&year=-1&agenceId=-1" class="svg-icon">
+                                        <img src="~/assets/images/statics.png" width="15%">
+                                        <span class="ml-3">salaire</span>
+                                    </a>
+                                </li>
+                                 <li class="active">
+                                <a href="~/Statistique/dashboardFournisseur?dateD=&dateF=&year=-1" class="svg-icon">
+                                        <img src="~/assets/images/statics.png" width="15%">
+                                        <span class="ml-3">fournisseur</span>
+                                    </a>
+                                </li>
+                                 <li class="active">
+                                <a href="~/Statistique/dashboardTable?serviceId=-1&agenceId=-1&dateD=&dateF=&year=-1&Kh=" class="svg-icon">
+                                        <img src="~/assets/images/statics.png" width="15%">
+                                        <span class="ml-3">detail</span>
+                                    </a>
+                                </li>
+                            
+                        </ul>
+
+                    </nav>
+                    <div class="p-3"></div>
+                </div>
+                <div class="data-scrollbar" data-scroll="1">
+           
+                    <div class="p-3"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex flex-column col-10 p-0 ">
+        
+            <div class="d-flex justify-content-center background pt-4 m-5">
+
+                <div class="col-10 " onclick="goToArchive()" id="chart2"> </div>
+            </div>
+
+            <div class="d-flex   justify-content-around">
+                <div class="col-4  background" onclick="goToArchiveChart1()" id="chart3"></div>
+                <div class="col-4 background" onclick="goToArchiveChart2()" id="chart4"></div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
