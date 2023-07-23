@@ -1,0 +1,42 @@
+﻿@section Title{
+    <title>Aposstille</title>
+}
+    @model Application_visa.Models.Virment
+
+
+    <div class="col-12">
+        <h2 class="mb-2">Virement</h2>
+        <p>Modifier virement Agence</p>
+        <form method="post" action="#" enctype="multipart/form-data">
+            <span style="color:red">@ViewData["eror"]</span>
+            <div class="row justify-content-center col-12">
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Montant</label>
+                        <input class="form-control" type="text" asp-for="montant" placeholder=" " readonly>
+                        <span asp-validation-for="montant"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="mb-0">Agence</label>
+                        <input class="form-control" type="text" asp-for="agent.ville" placeholder=" " readonly>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label class="mb-0">Document</label>
+                <input class="form-control" type="file" asp-for="file" placeholder=" " required>
+                <span asp-validation-for="file"></span>
+
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <button type="submit" class="btn btn-primary btn-lg">Modifier</button>
+        </div>
+    </form>
+</div>
+

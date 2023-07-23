@@ -5,7 +5,7 @@ namespace Application_visa.Models
 {
     public class Agence:Files
     {
-        public int ? id { get; set; }
+        public int id { get; set; }
         public string nom { get; set; }
         public string ville { get; set; }
         public  List<Agence> getAgences()
