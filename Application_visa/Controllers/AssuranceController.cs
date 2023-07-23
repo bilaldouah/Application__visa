@@ -18,6 +18,8 @@ namespace Application_visa.Controllers
             }
             if (ass.prix >= ass.charge && ass.total >= ass.charge && ass.total>=ass.prix)
             {
+                int id = (int)HttpContext.Session.GetInt32("userId");
+                ass.user = Models.User.getUser(id);
                 if (ass.file == null)
                 {
                     ass.add();

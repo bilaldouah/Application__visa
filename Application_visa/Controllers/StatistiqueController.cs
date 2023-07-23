@@ -97,6 +97,69 @@ namespace Application_visa.Controllers
 
             return View(viewModel);
         }
+        public IActionResult avanceChartEmp(int serviceId, string dateD, string dateF, int year, string kh, int agenceId, int empId )
+        {
+            ViewBag.idS = serviceId;
+            ViewBag.dateD = dateD;
+            ViewBag.dateF = dateF;
+            ViewBag.year = year;
+            ViewBag.kh = kh;
+            ViewBag.login = HttpContext.Session.GetString("userLogin");
+            Statistique statistique = new Statistique();
+            Service service = new Service();
+            Agence agence = new Agence();
+            var viewModel = new Statistique
+            {
+                agences = agence.getAgences(),
+                services = service.getAllServices(),
+                years = statistique.getAllYears(),
+                files = statistique.getFilesAvanceByEmp(serviceId, dateD, dateF, year, kh, agenceId,empId),
+            };
+
+            return View(viewModel);
+        }
+        public IActionResult doneChartEmp(int serviceId, string dateD, string dateF, int year, string kh, int agenceId, int empId)
+        {
+            ViewBag.idS = serviceId;
+            ViewBag.dateD = dateD;
+            ViewBag.dateF = dateF;
+            ViewBag.year = year;
+            ViewBag.kh = kh;
+            ViewBag.login = HttpContext.Session.GetString("userLogin");
+            Statistique statistique = new Statistique();
+            Service service = new Service();
+            Agence agence = new Agence();
+            var viewModel = new Statistique
+            {
+                agences = agence.getAgences(),
+                services = service.getAllServices(),
+                years = statistique.getAllYears(),
+                files = statistique.getFilesDoneByEmp(serviceId, dateD, dateF, year, kh, agenceId, empId),
+            };
+
+            return View(viewModel);
+        }
+        public IActionResult chartEmployer(int serviceId, string dateD, string dateF, int year, string kh, int agenceId, int empId)
+        {
+            ViewBag.idS = serviceId;
+            ViewBag.dateD = dateD;
+            ViewBag.dateF = dateF;
+            ViewBag.year = year;
+            ViewBag.kh = kh;
+            ViewBag.login = HttpContext.Session.GetString("userLogin");
+            Statistique statistique = new Statistique();
+            Service service = new Service();
+            Agence agence = new Agence();
+            var viewModel = new Statistique
+            {
+                agences = agence.getAgences(),
+                services = service.getAllServices(),
+                years = statistique.getAllYears(),
+                files = statistique.getAllFilesByEmp(serviceId, dateD, dateF, year, kh, agenceId, empId),
+            };
+
+            return View(viewModel);
+        }
         public IActionResult detailChart3(int serviceId, int agenceId, string dateD, string dateF, int year, string kh)
         {
             ViewBag.idS = serviceId;

@@ -8,6 +8,7 @@ namespace Application_visa.Models
         public void add()
         {
             Service sr =Service.getService("assurance");
+            Fournisseur f = Fournisseur.GetFournisseur("assurance");
             MySqlConnection con = connexion();
             con.Open();
             String query = "INSERT INTO files (nom, prenom, tele,cin,prix,charge,total,scan,date,id_service,ami_khalid,id_user) VALUES (@nom, @prenom, @tele,@cin,@prix,@charge,@total,@scan,Now(),@id_service,@ami_khalid,@id_user)";

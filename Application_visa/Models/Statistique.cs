@@ -686,6 +686,183 @@ namespace Application_visa.Models
             conn.Close();
             return listFilesAvance;
         }
+        public List<Files> getFilesAvanceByEmp(int serviceId, string dateD, string dateF, int year, string kh, int agenceId,int empId)
+        {
+            List<Files> listFilesAvance = new List<Files>();
+            string service = "true";
+
+            string dateCompare = "true";
+            string Years = "true";
+            string amieKh = "true";
+            if (kh != null)
+            {
+                amieKh = "files.ami_khalid= " + bool.Parse(kh) + "";
+
+            }
+            if (serviceId != -1)
+            {
+                service = "files.id_service= " + serviceId + "";
+
+            }
+
+            if (dateD != null)
+            {
+                dateCompare = "DATE(files.date) between '" + dateD + "' and '" + dateF + "'";
+            }
+
+            if (year != -1)
+            {
+                Years = "Year(files.date)= " + year + "";
+
+            }
+            MySqlConnection conn = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;convert zero datetime=True"); ;
+            conn.Open();
+            using MySqlCommand command = conn.CreateCommand();
+            command.CommandText = $"SELECT * from agence inner join user on agence.id=user.id_agence inner join files on user.id=files.id_user inner join service on files.id_service=service.id where user.id=@userId and files.prix<files.total and agence.id=@idAg and {service} and  {dateCompare}  and  {Years} and {amieKh}";
+            command.Parameters.Add(new MySqlParameter("@idAg", agenceId));
+            command.Parameters.Add(new MySqlParameter("@userId", empId));
+            MySqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Statistique file = new Statistique();
+                    file.nom = reader[9].ToString();
+                    file.prenom = reader[10].ToString();
+                    file.tele = reader[11].ToString();
+                    file.prix = float.Parse(reader[13].ToString());
+                    file.charge = float.Parse(reader[14].ToString());
+                    file.total = float.Parse(reader[15].ToString());
+                    file.date = DateTime.Parse(reader[29].ToString());
+                    file.service = new Service();
+                    file.service.nom = reader[31].ToString();
+                    file.user = new User();
+                    file.user.agence = new Agence();
+                    file.user.agence.nom = reader[1].ToString();
+                    listFilesAvance.Add(file);
+                }
+            }
+            conn.Close();
+            return listFilesAvance;
+        }
+        public List<Files> getFilesDoneByEmp(int serviceId, string dateD, string dateF, int year, string kh, int agenceId, int empId)
+        {
+            List<Files> listFilesDone = new List<Files>();
+            string service = "true";
+
+            string dateCompare = "true";
+            string Years = "true";
+            string amieKh = "true";
+            if (kh != null)
+            {
+                amieKh = "files.ami_khalid= " + bool.Parse(kh) + "";
+
+            }
+            if (serviceId != -1)
+            {
+                service = "files.id_service= " + serviceId + "";
+
+            }
+
+            if (dateD != null)
+            {
+                dateCompare = "DATE(files.date) between '" + dateD + "' and '" + dateF + "'";
+            }
+
+            if (year != -1)
+            {
+                Years = "Year(files.date)= " + year + "";
+
+            }
+            MySqlConnection conn = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;convert zero datetime=True"); ;
+            conn.Open();
+            using MySqlCommand command = conn.CreateCommand();
+            command.CommandText = $"SELECT * from agence inner join user on agence.id=user.id_agence inner join files on user.id=files.id_user inner join service on files.id_service=service.id where  user.id=@userId and agence.id=@idAg and  files.prix=files.total and {service} and  {dateCompare}  and  {Years} and {amieKh} ";
+            command.Parameters.Add(new MySqlParameter("@idAg", agenceId));
+            command.Parameters.Add(new MySqlParameter("@userId", empId));
+            MySqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Statistique file = new Statistique();
+                    file.nom = reader[9].ToString();
+                    file.prenom = reader[10].ToString();
+                    file.tele = reader[11].ToString();
+                    file.prix = float.Parse(reader[13].ToString());
+                    file.charge = float.Parse(reader[14].ToString());
+                    file.total = float.Parse(reader[15].ToString());
+                    file.date = DateTime.Parse(reader[29].ToString());
+                    file.service = new Service();
+                    file.service.nom = reader[31].ToString();
+                    file.user = new User();
+                    file.user.agence = new Agence();
+                    file.user.agence.nom = reader[1].ToString();
+                    listFilesDone.Add(file);
+                }
+            }
+            conn.Close();
+            return listFilesDone;
+        }
+        public List<Files> getAllFilesByEmp(int serviceId, string dateD, string dateF, int year, string kh, int agenceId, int empId)
+        {
+            List<Files> listFilesDone = new List<Files>();
+            string service = "true";
+
+            string dateCompare = "true";
+            string Years = "true";
+            string amieKh = "true";
+            if (kh != null)
+            {
+                amieKh = "files.ami_khalid= " + bool.Parse(kh) + "";
+
+            }
+            if (serviceId != -1)
+            {
+                service = "files.id_service= " + serviceId + "";
+
+            }
+
+            if (dateD != null)
+            {
+                dateCompare = "DATE(files.date) between '" + dateD + "' and '" + dateF + "'";
+            }
+
+            if (year != -1)
+            {
+                Years = "Year(files.date)= " + year + "";
+
+            }
+            MySqlConnection conn = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;convert zero datetime=True"); ;
+            conn.Open();
+            using MySqlCommand command = conn.CreateCommand();
+            command.CommandText = $"SELECT * from agence inner join user on agence.id=user.id_agence inner join files on user.id=files.id_user inner join service on files.id_service=service.id where  user.id=@userId and agence.id=@idAg and  files.prix=files.total and {service} and  {dateCompare}  and  {Years} and {amieKh} ";
+            command.Parameters.Add(new MySqlParameter("@idAg", agenceId));
+            command.Parameters.Add(new MySqlParameter("@userId", empId));
+            MySqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Statistique file = new Statistique();
+                    file.nom = reader[9].ToString();
+                    file.prenom = reader[10].ToString();
+                    file.tele = reader[11].ToString();
+                    file.prix = float.Parse(reader[13].ToString());
+                    file.charge = float.Parse(reader[14].ToString());
+                    file.total = float.Parse(reader[15].ToString());
+                    file.date = DateTime.Parse(reader[29].ToString());
+                    file.service = new Service();
+                    file.service.nom = reader[31].ToString();
+                    file.user = new User();
+                    file.user.agence = new Agence();
+                    file.user.agence.nom = reader[1].ToString();
+                    listFilesDone.Add(file);
+                }
+            }
+            conn.Close();
+            return listFilesDone;
+        }
         public Tuple<List<Statistique>, List<dateRepository>> countFilesByAg(int serviceId, string dateD, string dateF, int year, string kh, int agId)
         {
             List<dateRepository> monthNames = new List<dateRepository>();

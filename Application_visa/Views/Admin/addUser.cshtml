@@ -2,64 +2,70 @@
     <title>ajouter utilisateur</title>
 }
 @model Application_visa.Models.User
+<div class="col-12 d-flex justify-content-center">
+    <h3 class="text-success">@ViewBag.successAddition </h3>
+</div>
                        <div class="col-12">
                             <form method="post">
                                 <div class="row justify-content-center col-12">
                                     
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="mb-0">Login</label>
+                                            <label class="mb-0" asp-for="login"></label>
                                             <input class="form-control" type="text" asp-for="login" placeholder=" ">
+                    <span class="text-warning">@ViewBag.loginError</span>
+                    <span class="text-warning">@ViewBag.sameLoginError</span>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="mb-0">Password</label>
                                             <input class="form-control" type="password" asp-for="pwd" placeholder=" ">
+                    <span class="text-warning">@ViewBag.pwdError</span>
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="mb-0"> Password confirmation</label>
+                                            <input class="form-control" asp-for="passwordConfirm"  type="password" placeholder=" ">
+                    <span class="text-warning">@ViewBag.pwdConfirmationError</span>
+                    <p class="text-warning">@ViewBag.passwordNotMatchError</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row justify-content-center col-12">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="mb-0">Confirm Password</label>
-                                            <input class="form-control" name="passwordConfirm" type="password" placeholder=" ">
-                                            <div asp-validation-summary="All"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
+                                  
+                                  <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="mb-0">Role</label>
-                                            <select asp-for="role.id">
+                                               <select class="custom-select" asp-for="role.id">
                                                 @foreach (Role r in Model.roles)
                                                 {
-                                                    <option value="@r.id"> @r.nom</option>
+                                                    <option class="text-center" value="@r.id"> @r.nom</option>
                                                 }
                                             </select>
-                                            <div asp-validation-summary="All"></div>
+                                               <span class="text-warning">@ViewBag.roleError</span>
                                         </div>
                                     </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="mb-0">Agence</label>
+                    <select class="custom-select" asp-for="agence.id">
+                        @foreach (Agence agence in Model.agences)
+                        {
+                            <option class="text-center" value="@agence.id"> @agence.nom</option>
+                        }
+                    </select>
+                    <span class="text-warning">@ViewBag.agenceError</span>
+                </div>
+            </div>
                                 </div>
 
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="mb-0">Agence</label>
-                                            <select asp-for="agence.id">
-                                                @foreach (Agence agence in Model.agences)
-                                                {
-                                                    <option value="@agence.id"> @agence.nom</option>
-                                                }
-                                            </select>
-                                            <div asp-validation-summary="All"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                            
 
-                                <div class="row justify-content-center">
+                                <div class="row justify-content-start">
                                     <div class="col-lg-6">
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                                     </div>

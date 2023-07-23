@@ -1,0 +1,52 @@
+﻿@section Title{
+    <title>Liste des dossiers</title>
+}
+<h2 class="mb-2">Aposstille</h2>
+<table id="example" class="table table-striped table-bordered mw-60 police " style="width:100%">
+    <thead>
+        <tr>
+            <td class="text-center">nom</td>
+            <td class="text-center">prenom</td>
+            <td class="text-center">Telephone</td>
+            <td class="text-center">cin</td>
+            <td class="text-center">prix</td>
+            <td class="text-center"> charge</td>
+            <td class="text-center">total</td>
+            <td class="text-center">Destination</td>
+            <td class="text-center">date</td>
+            <td class="text-center">Amie de Khalid</td>
+            <td class="text-center">Document</td>
+            <td class="text-center">Agence</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Tourism s in ViewData["tourism"] as List<Tourism>)
+        {
+            <tr>
+                <td class="text-center">@s.nom</td>
+                <td class="text-center">@s.prenom</td>
+                <td class="text-center">@s.tele</td>
+                <td class="text-center">@s.cin</td>
+                <td class="text-center">@s.prix</td>
+                <td class="text-center">@s.charge</td>
+                <td class="text-center">@s.total</td>
+                <td class="text-center">@s.date</td>
+                @if (s.ami_khaled == true)
+                {
+                    <td class="text-center">OUi</td>
+
+                }
+                else
+                {
+                    <td class="text-center">NON</td>
+                }
+                <td class="text-center"><a href="~/scans/@s.scan">Scan du dossier</a></td>
+                <td class="text-center">@s.agence.nom</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script> 

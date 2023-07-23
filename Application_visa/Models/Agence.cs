@@ -8,7 +8,7 @@ namespace Application_visa.Models
         public int id { get; set; }
         public string nom { get; set; }
         public string ville { get; set; }
-        public List<Agence> getAgences()
+        public  List<Agence> getAgences()
         {
             MySqlConnection conn = connexion();
             conn.Open();

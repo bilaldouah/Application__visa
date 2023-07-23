@@ -12,7 +12,7 @@ namespace Application_visa.Models
             return connection;
         }
 
-        public List<Service> getAllServices()
+        public  List<Service> getAllServices()
         {
             MySqlConnection conn = connexion();
             conn.Open();
