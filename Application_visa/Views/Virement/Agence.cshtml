@@ -1,13 +1,14 @@
 ﻿@section Title{
-    <title>Virement_Employe</title>
+    <title>Aposstille</title>
 }
     @model Application_visa.Models.Virment
 
 
     <div class="col-12">
         <h2 class="mb-2">Virement</h2>
-        <p>Verser a un Employe</p>
+        <p>Verser a une Agence</p>
         <form method="post" action="#" enctype="multipart/form-data">
+            <span style="color:red">@ViewData["eror"]</span>
             <div class="row justify-content-center col-12">
 
                 <div class="col-lg-6">
@@ -20,17 +21,16 @@
 
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label class="mb-0">Employe</label>
-                        <select asp-for="user_receiver.id" required class="selectDrop">
-                        @foreach (User user in ViewData["Users"] as List<User>)
+                        <label class="mb-0">Agence</label>
+                        <select asp-for="agent.id" required class="selectDrop">
+                        @foreach (Agence agence in ViewData["agence"] as List<Agence>)
                         {
-                            <option value="@user.id">@user.login</option>
+                            <option value="@agence.id">@agence.nom</option>
                         }
-                       </select>
-                        <span asp-validation-for="user_receiver"></span>
-                    </div>
+                    </select>
                 </div>
             </div>
+        </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="mb-0">Document</label>
@@ -39,9 +39,9 @@
 
             </div>
         </div>
-            <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
-            </div>
-        </form>
-    </div>
+        <div class="col-lg-6">
+            <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+        </div>
+    </form>
+</div>
 

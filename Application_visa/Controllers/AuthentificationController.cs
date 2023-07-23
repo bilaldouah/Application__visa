@@ -36,5 +36,10 @@ namespace Application_visa.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Modifier_MotDePasse()
+        {
+            return View();
+        }
+
     }
 }

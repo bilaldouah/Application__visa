@@ -6,7 +6,7 @@
 
     <div class="col-12">
         <h2 class="mb-2">Virement</h2>
-        <p>Verser a un Fournisseur</p>
+        <p>Modifier virement Fournisseur</p>
         <form method="post" action="#" enctype="multipart/form-data">
             <span style="color:red">@ViewData["eror"]</span>
             <div class="row justify-content-center col-12">
@@ -14,7 +14,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label class="mb-0">Montant</label>
-                        <input class="form-control" type="text" asp-for="montant" placeholder=" " required>
+                        <input class="form-control" type="text" asp-for="montant" placeholder=" "  readonly>
                         <span asp-validation-for="montant"></span>
                     </div>
                 </div>
@@ -22,25 +22,22 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label class="mb-0">Fournisseur</label>
-                        <select asp-for="fournisseur.id" required class="selectDrop">
-                        @foreach (Fournisseur fourn in ViewData["Fournisseurs"] as List<Fournisseur>)
-                        {
-                            <option value="@fourn.id">@fourn.nom</option>
-                        }
-                    </select>
+                        <input class="form-control" type="text" asp-for="fournisseur.nom" placeholder=" " readonly>
+
+                      
                 </div>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="mb-0">Document</label>
-                <input class="form-control" type="file" asp-for="file" placeholder=" ">
+                <input class="form-control" type="file" asp-for="file" placeholder=" " required>
                 <span asp-validation-for="file"></span>
 
             </div>
         </div>
         <div class="col-lg-6">
-            <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+            <button type="submit" class="btn btn-primary btn-lg">Modifier</button>
         </div>
     </form>
 </div>
