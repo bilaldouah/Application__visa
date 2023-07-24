@@ -21,6 +21,7 @@ namespace Application_visa.Controllers
                     HttpContext.Session.SetInt32("userId", user.loginUser().id.Value);
 
                     HttpContext.Session.SetString("userLogin", user.loginUser().login);
+                    HttpContext.Session.SetString("userRole", user.loginUser().role.nom);
                     ViewBag.login = HttpContext.Session.GetString("userLogin");
 
                     HttpContext.Session.SetString("userRole", user.loginUser().role.nom);
