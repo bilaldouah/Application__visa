@@ -836,7 +836,7 @@ namespace Application_visa.Models
             MySqlConnection conn = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;convert zero datetime=True"); ;
             conn.Open();
             using MySqlCommand command = conn.CreateCommand();
-            command.CommandText = $"SELECT * from agence inner join user on agence.id=user.id_agence inner join files on user.id=files.id_user inner join service on files.id_service=service.id where  user.id=@userId and agence.id=@idAg and  files.prix=files.total and {service} and  {dateCompare}  and  {Years} and {amieKh} ";
+            command.CommandText = $"SELECT * from agence inner join user on agence.id=user.id_agence inner join files on user.id=files.id_user inner join service on files.id_service=service.id where  user.id=@userId and agence.id=@idAg  and {service} and  {dateCompare}  and  {Years} and {amieKh} ";
             command.Parameters.Add(new MySqlParameter("@idAg", agenceId));
             command.Parameters.Add(new MySqlParameter("@userId", empId));
             MySqlDataReader reader = command.ExecuteReader();
