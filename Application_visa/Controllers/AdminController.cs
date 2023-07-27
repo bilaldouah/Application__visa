@@ -1,9 +1,11 @@
 ﻿using Application_visa.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using Application_visa.filters;
 namespace Application_visa.Controllers
 {
+    [AuthentificationFilter]
+ 
     public class AdminController : Controller
     {
         public IActionResult Index()
