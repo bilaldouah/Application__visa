@@ -173,12 +173,12 @@ namespace Application_visa.Models
             
             Service ser = Service.getService("Education");
             List<Files> files = new List<Files>();
-             //Agence a=Agence.getAgence(3);
+             Agence a=Agence.getAgence(3);
             MySqlConnection con = connexion();                
                 con.Open();
                 String query = "SELECT * from agence inner join user on agence.id=user.id_agence inner join files on user.id=files.id_user inner join service on files.id_service=service.id where agence.id=@idA and id_service= @ids";
                 MySqlCommand cmd = new MySqlCommand(query, con);
-               // cmd.Parameters.Add(new MySqlParameter("@idA", a.id));
+                cmd.Parameters.Add(new MySqlParameter("@idA", a.id));
                 cmd.Parameters.Add(new MySqlParameter("@ids", ser.id));
             MySqlDataReader rd = cmd.ExecuteReader();
                 while (rd.Read())
