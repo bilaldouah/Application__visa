@@ -11,9 +11,9 @@ namespace Application_visa.Controllers
             Agence a = Agence.getAgence(user.idagence);
             ViewData["assurance"] = Files.getAllbyAgence(a.id);
             ViewData["appostille"] = Files.getAllAppostilbyAgence();
-            ViewData["tourism"] = Files.getAllTorismByAgence((int)user.id);
+            ViewData["tourism"] = Tourism.getAllbyAgence();
             ViewData["Traduction"] = Files.getAllTraductionByAgence();
-            ViewData["Education"] = Files.GetAllEducationByAgence();
+            ViewData["Education"] = Files.GetAllEducationByAgence(a.id);
             return View();
         }
     }

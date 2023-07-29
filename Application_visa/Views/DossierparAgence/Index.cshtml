@@ -118,7 +118,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Files s in ViewData["tourism"] as List<Files>)
+        @foreach (Tourism s in ViewData["tourism"] as List<Tourism>)
         {
             <tr>
                 <td class="text-center">@s.nom</td>
@@ -129,7 +129,6 @@
                 <td class="text-center">@s.charge</td>
                 <td class="text-center">@s.total</td>
                 <td class="text-center">@s.date</td>
-                <td class="text-center">@s.fournisseur.nom</td>
                 @if (s.ami_khaled == true)
                 {
                     <td class="text-center">OUi</td>
@@ -180,7 +179,6 @@
                 <td class="text-center">@s.charge</td>
                 <td class="text-center">@s.total</td>
                 <td class="text-center">@s.date</td>
-                <td class="text-center">@s.fournisseur.nom</td>
                 @if (s.ami_khaled == true)
                 {
                     <td class="text-center">OUi</td>

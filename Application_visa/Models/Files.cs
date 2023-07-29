@@ -137,13 +137,13 @@ namespace Application_visa.Models
         {
             MySqlConnection con = connexion();
             con.Open();
-            Agence a = Agence.getAgence(2);
+            Agence a= new Agence();
             Service ser = Service.getService("Traduction");
             Fournisseur f1 = Fournisseur.GetFournisseur("Traduction");
-            String query = "SELECT * FROM files inner join user on user.id=id_user inner join agence on agence.id=id_agence where id_agence=@idA  and id_service= @ids ";
+            String query = "SELECT  * FROM files inner join user on user.id=id_user inner join agence on agence.id=id_agence where id_service= @ids and id_agence=@idA ";
             MySqlCommand cmd = new MySqlCommand(query, con);
-            cmd.Parameters.Add(new MySqlParameter("@idA", a.id));
             cmd.Parameters.Add(new MySqlParameter("@ids", ser.id));
+            cmd.Parameters.Add(new MySqlParameter("@idA",a.id));
             MySqlDataReader rd = cmd.ExecuteReader();
             List<Files> files = new List<Files>();
             while (rd.Read())
@@ -162,24 +162,23 @@ namespace Application_visa.Models
                 f.user = User.getUser(int.Parse(rd["id_user"].ToString()));
                 Service s = new Service();
                 f.service = Service.getService(s.nom);
-                f.fournisseur = Fournisseur.getFourn((int)f1.id);
+                
                 files.Add(f);
             }
             return files;
 
         }
-        public static List<Files> GetAllEducationByAgence()
+        public static List<Files> GetAllEducationByAgence(int id)
         {
             
             Service ser = Service.getService("Education");
             List<Files> files = new List<Files>();
-             Agence a=Agence.getAgence(3);
             MySqlConnection con = connexion();                
                 con.Open();
                 String query = "SELECT * from agence inner join user on agence.id=user.id_agence inner join files on user.id=files.id_user inner join service on files.id_service=service.id where agence.id=@idA and id_service= @ids";
                 MySqlCommand cmd = new MySqlCommand(query, con);
-                cmd.Parameters.Add(new MySqlParameter("@idA", a.id));
                 cmd.Parameters.Add(new MySqlParameter("@ids", ser.id));
+                cmd.Parameters.Add(new MySqlParameter("@idA",id));
             MySqlDataReader rd = cmd.ExecuteReader();
                 while (rd.Read())
                 {
