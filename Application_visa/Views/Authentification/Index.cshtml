@@ -1,16 +1,13 @@
 ﻿@{
     Layout = "";
 }
-@section Title{
-    <title>Authentification</title>
-}
+
     @model Application_visa.Models.User
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>EmailCHIMP | Responsive Bootstrap 4 Admin Dashboard Template</title>
-
+        <title>Authentification</title>
         <!-- Favicon -->
         <link rel="shortcut icon" href="../assets/images/favicon.ico" />
         <link rel="stylesheet" href="../assets/css/backend-plugin.min.css">
@@ -46,9 +43,6 @@
                                             <span class="text-warning">@ViewBag.pwdError</span>
                                             <span class="text-warning">@ViewBag.wrongData</span>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                        <a href="auth-recoverpw.html" class="text-primary float-right">mot de passe oublié?</a>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-lg">login</button>

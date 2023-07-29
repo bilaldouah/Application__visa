@@ -40,7 +40,7 @@ namespace Application_visa.Controllers
             {
                 if (user.searchUser(user.login) == true)
                 {
-                    ViewBag.sameLoginError = "ce login est déja utilisé, veuillez choisir une autre login";
+                    ViewBag.sameLoginError = "ce login est déja utilisé, veuillez choisir un autre login";
                 }
 
                 if (user.passwordConfirm == user.pwd && user.searchUser(user.login) == false)

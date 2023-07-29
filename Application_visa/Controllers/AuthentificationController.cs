@@ -53,9 +53,11 @@ namespace Application_visa.Controllers
             return View();
         }
 
-        public IActionResult Modifier_MotDePasse()
+        public IActionResult Sedeconnecter()
         {
-            return View();
+
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
         }
 
     }

@@ -18,23 +18,16 @@ namespace Application_visa.Models
         [Required(ErrorMessage = "le role est obligatoire")]
         public Role  role { get; set; }
         [Required(ErrorMessage = "l'agence est obligatoire")]
+<<<<<<< HEAD
         public Agence agence { get; set; }
         public int idagence { get; set; }
+=======
+        public Agence  agence { get; set; }
+>>>>>>> f8e5e08fb80d3f5d3802671a0883739169d84b03
 
        public List<Application_visa.Models.Role> ? roles { get; set; }
         public List<Application_visa.Models.Agence> ? agences { get; set; }
      
-        public void updatepwd(String pwd)
-        {
-            MySqlConnection con = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;");
-            con.Open();
-            String query = "UPDATE user set pwd = @pwd where id = @id";
-            MySqlCommand cmd = new MySqlCommand(query, con);
-            cmd.Parameters.Add(new MySqlParameter("@pwd", hashPassword(pwd)));
-            cmd.Parameters.Add(new MySqlParameter("@id", this.id));
-            cmd.ExecuteNonQuery();
-            con.Close();
-        }
 
      public string hashPassword(string password)
         {
@@ -194,24 +187,6 @@ namespace Application_visa.Models
                     user.login = reader["login"].ToString();
                     user.agence = Agence.getAgence(int.Parse(reader["id_agence"].ToString()));
                 }
-            conn.Close();
-            return user;
-        }
-
-        public static User getUserPassword(int empId)
-        {
-            MySqlConnection conn = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;"); ;
-            conn.Open();
-            using MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT * from user where id=@idEmp";
-            command.Parameters.Add(new MySqlParameter("@idEmp", empId));
-            User user = new User();
-            MySqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                user.id = int.Parse(reader["id"].ToString());
-                user.pwd = reader["pwd"].ToString();
-            }
             conn.Close();
             return user;
         }
