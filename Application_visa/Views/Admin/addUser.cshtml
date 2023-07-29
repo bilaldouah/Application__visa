@@ -36,7 +36,18 @@
                                 </div>
 
                                 <div class="row justify-content-center col-12">
-                                  
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="mb-0"> Email</label>
+                        <input class="form-control" asp-for="email" type="email" placeholder=" ">
+                        <span class="text-warning">@ViewBag.sameemailError</span>
+                        <p class="text-warning">@ViewBag.emailError</p>
+                        <span class="text-warning" asp-validation-for="email"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center col-12">
+
                                   <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="mb-0">Role</label>

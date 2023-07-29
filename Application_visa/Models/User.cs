@@ -21,7 +21,11 @@ namespace Application_visa.Models
         public Agence agence { get; set; }
         public int idagence { get; set; }
 
-       public List<Application_visa.Models.Role> ? roles { get; set; }
+        [Required(ErrorMessage = "l'email est obligatoire")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "respecter la forme du email")]
+        public String email { get; set; }
+
+        public List<Application_visa.Models.Role> ? roles { get; set; }
         public List<Application_visa.Models.Agence> ? agences { get; set; }
      
         public void updatepwd(String pwd)
@@ -36,7 +40,19 @@ namespace Application_visa.Models
             con.Close();
         }
 
-     public string hashPassword(string password)
+        public static void updatepwdbymail(String email,String pwd)
+        {
+            MySqlConnection con = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;");
+            con.Open();
+            String query = "UPDATE user set pwd = @pwd where email = @email";
+            MySqlCommand cmd = new MySqlCommand(query, con);
+            cmd.Parameters.Add(new MySqlParameter("@pwd", pwd));
+            cmd.Parameters.Add(new MySqlParameter("@email", email));
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public string hashPassword(string password)
         {
 
             if (password != null)
@@ -52,12 +68,13 @@ namespace Application_visa.Models
         {          
             MySqlConnection con = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;");
             con.Open();
-            String query = "INSERT INTO user (login, pwd, id_role,id_agence) VALUES (@login, @pwd, @id_role,@id_agence)";
+            String query = "INSERT INTO user (login, pwd, id_role,id_agence,email) VALUES (@login, @pwd, @id_role,@id_agence,@email)";
             MySqlCommand cmd = new MySqlCommand(query, con);         
             cmd.Parameters.Add(new MySqlParameter("@login", this.login));
             cmd.Parameters.Add(new MySqlParameter("@pwd", hashPassword(this.pwd)));
             cmd.Parameters.Add(new MySqlParameter("@id_role", this.role.id));
             cmd.Parameters.Add(new MySqlParameter("@id_agence", this.agence.id));
+            cmd.Parameters.Add(new MySqlParameter("@email", this.email));
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -79,7 +96,7 @@ namespace Application_visa.Models
                     user.login = reader[1].ToString();
                     user.pwd = reader[2].ToString();
                     user.role = new Role();
-                    user.role.nom = reader[6].ToString();
+                    user.role.nom = reader["role"].ToString();
                       
                 }
                 
@@ -108,6 +125,30 @@ namespace Application_visa.Models
             else
             {
                 result= false;
+            }
+            conn.Close();
+            return result;
+        }
+
+        public Boolean searchUserbyemail(String email)
+        {
+            Boolean result = false;
+            MySqlConnection conn = new MySqlConnection("server=localhost;database=apk_visa;uid=root;password=;"); ;
+            conn.Open();
+            using MySqlCommand command = conn.CreateCommand();
+            command.CommandText = "SELECT * from user where email=@login";
+            command.Parameters.Add(new MySqlParameter("@login", email));
+            MySqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    result = true;
+                }
+            }
+            else
+            {
+                result = false;
             }
             conn.Close();
             return result;

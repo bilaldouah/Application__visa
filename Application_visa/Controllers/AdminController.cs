@@ -42,8 +42,11 @@ namespace Application_visa.Controllers
                 {
                     ViewBag.sameLoginError = "ce login est déja utilisé, veuillez choisir un autre login";
                 }
-
-                if (user.passwordConfirm == user.pwd && user.searchUser(user.login) == false)
+                if (user.searchUserbyemail(user.email) == true)
+                {
+                    ViewBag.sameemailError = "ce email est déja utilisé, veuillez choisir un autre email";
+                }
+                if (user.passwordConfirm == user.pwd && user.searchUser(user.login) == false && user.searchUserbyemail(user.email) == false)
                 {
                     user.addUtilisateure();
                     ViewBag.successAddition = "votre opération s'étant déroulée avec succès";                 
@@ -78,7 +81,11 @@ namespace Application_visa.Controllers
                 {
                     ViewBag.agenceError = "l'agence est obligatoire";
                 }
-                   
+            if (user.email == null)
+            {
+                ViewBag.emailError = "l'email est obligatoire";
+            }
+
 
             return View(viewModel);
 
