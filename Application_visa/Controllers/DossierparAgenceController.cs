@@ -8,12 +8,11 @@ namespace Application_visa.Controllers
         public IActionResult Index()
         {
             User user = Models.User.getUsersById_((int)HttpContext.Session.GetInt32("userId"));
-            Agence a = Agence.getAgence(user.idagence);
-            ViewData["assurance"] = Files.getAllbyAgence(a.id);
-            ViewData["appostille"] = Files.getAllAppostilbyAgence();
-            ViewData["tourism"] = Tourism.getAllbyAgence();
-            ViewData["Traduction"] = Files.getAllTraductionByAgence();
-            ViewData["Education"] = Files.GetAllEducationByAgence(a.id);
+            ViewData["assurance"] = Files.getAllbyAgence(user.agence.id);
+            ViewData["appostille"] = Files.getAllAppostilbyAgence(user.agence.id);
+            ViewData["tourism"] = Tourism.getAllbyAgence(user.agence.id);
+            ViewData["Traduction"] = Files.getAllTraductionByAgence(user.agence.id);
+            ViewData["Education"] = Files.GetAllEducationByAgence(user.agence.id);
             return View();
         }
     }

@@ -133,17 +133,15 @@ namespace Application_visa.Models
             }
             return files;
         }
-        public static List<Files> getAllTraductionByAgence()
+        public static List<Files> getAllTraductionByAgence(int idagence)
         {
             MySqlConnection con = connexion();
             con.Open();
-            Agence a= new Agence();
             Service ser = Service.getService("Traduction");
-            Fournisseur f1 = Fournisseur.GetFournisseur("Traduction");
             String query = "SELECT  * FROM files inner join user on user.id=id_user inner join agence on agence.id=id_agence where id_service= @ids and id_agence=@idA ";
             MySqlCommand cmd = new MySqlCommand(query, con);
             cmd.Parameters.Add(new MySqlParameter("@ids", ser.id));
-            cmd.Parameters.Add(new MySqlParameter("@idA",a.id));
+            cmd.Parameters.Add(new MySqlParameter("@idA", idagence));
             MySqlDataReader rd = cmd.ExecuteReader();
             List<Files> files = new List<Files>();
             while (rd.Read())
