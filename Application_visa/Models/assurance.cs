@@ -95,8 +95,7 @@ namespace Application_visa.Models
             }
             con.Close();
             return list;
-
-
         }
+       
     }
 }

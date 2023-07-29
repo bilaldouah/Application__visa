@@ -22,7 +22,7 @@ namespace Application_visa.Controllers
                 {
                     torism.Add();
                     ViewData["erorPrix"] = "Tourism a etait bien enregistrer";
-                    return RedirectToAction("index", "Home");
+                    return RedirectToAction("Index", "DossierparAgence");
                 }
                 String[] ext = { ".jpg", ".png", ".jpeg", ".pdf" };
                 String file_ext = Path.GetExtension(torism.file.FileName);
@@ -44,7 +44,7 @@ namespace Application_visa.Controllers
             {
                 ViewData["erorPrix"] = "le prix doit etre plus ou egale la charge";
             }
-            return View();
+            return RedirectToAction("Index", "DossierparAgence");
         }
         public IActionResult Modifier(int id)
         {
@@ -60,14 +60,14 @@ namespace Application_visa.Controllers
                 {
                     app.Update();
                     ViewData["erorPrix"] = "Tourism a etait bien Modifier";
-                    return RedirectToAction("index", "Home");
+                    return RedirectToAction("Index", "DossierparAgence");
 
                 }
                 if (app.file == null)
                 {
                     app.Update();
                     ViewData["erorPrix"] = "Tourism a etait bien enregistrer";
-                    return RedirectToAction("index", "Home");
+                    return RedirectToAction("Index", "DossierparAgence");
 
                 }
                 else
@@ -97,7 +97,7 @@ namespace Application_visa.Controllers
                 ViewData["erorPrix"] = "le prix doit etre plus ou egale la charge";
 
             }
-            return RedirectToAction("index", "Home");
+            return RedirectToAction("Index", "DossierparAgence");
 
         }
     }

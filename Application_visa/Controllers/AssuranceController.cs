@@ -64,14 +64,14 @@ namespace Application_visa.Controllers
                 {
                     app.modifier();
                     ViewData["erorPrix"] = "l'assurance a etait bien Modifier";
-                    return RedirectToAction("index", "Home");
+                    return RedirectToAction("Index", "DossierparAgence");
 
                 }
                 if (app.file == null)
                 {
                     app.modifier();
                     ViewData["erorPrix"] = "l'assurance a etait bien enregistrer";
-                    return RedirectToAction("index", "Home");
+                    return RedirectToAction("Index", "DossierparAgence");
 
                 }
                 else
@@ -101,7 +101,7 @@ namespace Application_visa.Controllers
                 ViewData["erorPrix"] = "le prix doit etre plus ou egale la charge";
 
             }
-            return RedirectToAction("index", "Home");
+            return RedirectToAction("Index", "DossierparAgence");
 
         }
 

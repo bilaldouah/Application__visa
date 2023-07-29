@@ -21,7 +21,6 @@ namespace Application_visa.Models
                 role.id = int.Parse(reader["id"].ToString());
                 role.nom = reader["role"].ToString();
                 roles.Add(role);
-           
             }
             conn.Close();
             return roles;
