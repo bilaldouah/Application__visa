@@ -1,9 +1,12 @@
-﻿using Application_visa.Models;
+﻿using Application_visa.filters;
+using Application_visa.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Application_visa.Controllers
 {
+    [AgentFilter]
+
     public class EducationController : Controller
     {
         public IActionResult Index()

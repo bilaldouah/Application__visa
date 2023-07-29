@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application_visa.filters;
+using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
 namespace Application_visa.Controllers
 {
+    [AuthentificationFilter]
     public class UserController : Controller
     {
         public IActionResult UpdatePassword()

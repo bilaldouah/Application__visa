@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application_visa.filters;
 namespace Application_visa.Controllers
 {
-    [AuthentificationFilter]
+    [AdminFilter]
  
     public class AdminController : Controller
     {

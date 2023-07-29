@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Application_visa.Controllers
 {
-    [AuthentificationFilter]
+    [AgentFilter]
+
     public class AssuranceController : Controller
     {
         public IActionResult Index()

@@ -9,7 +9,7 @@ namespace Application_visa.filters
         {
             if (context.HttpContext.Session.GetInt32("userId") != null)
             {
-                if (context.HttpContext.Session.GetString("userRole") == "caissiere" || context.HttpContext.Session.GetString("userRole") == "admin")
+                if (context.HttpContext.Session.GetString("userRole") == "admin")
                 {
                     context.Result = new RedirectResult("/Authentification/Index");
                     return;

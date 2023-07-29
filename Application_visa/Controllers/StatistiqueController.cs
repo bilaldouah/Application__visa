@@ -5,7 +5,7 @@ using System.Security.Policy;
 
 namespace Application_visa.Controllers
 {
-    [AuthentificationFilter]
+    [AdminFilter]
     
     public class StatistiqueController : Controller
     {
