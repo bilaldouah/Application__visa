@@ -1,8 +1,10 @@
-﻿using Application_visa.Models;
+﻿using Application_visa.filters;
+using Application_visa.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application_visa.Controllers
 {
+    [AuthentificationFilter]
     public class AssuranceController : Controller
     {
         public IActionResult Index()

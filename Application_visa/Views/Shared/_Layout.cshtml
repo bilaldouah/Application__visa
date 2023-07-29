@@ -48,7 +48,10 @@
               </div>
           </div>
           <div class="data-scrollbar" data-scroll="1">
-              <nav class="iq-sidebar-menu">
+                @if (@Context.Session.GetString("userRole") == "agent" || @Context.Session.GetString("userRole") =="caissiere")
+                {
+                                    
+                <nav class="iq-sidebar-menu">
                         <ul id="iq-sidebar-toggle" class="iq-menu">
                              <li>
                             <a asp-controller="Aposstille" asp-action="Index" class="svg-icon">
@@ -159,6 +162,57 @@
                              </li>
                         </ul>
                     </nav>
+                }
+                else
+                {
+                     <div class="col-2 m-0 p-0">
+            <div class="iq-sidebar  sidebar-default ">
+               
+                <div class="data-scrollbar" data-scroll="1">
+                    <nav class="iq-sidebar-menu">
+                        <ul id="iq-sidebar-toggle" class="iq-menu">
+                            <p class=" text-center text-warning">LES DASHBOARD</p>
+
+                            <li class="active">
+                                <a href="~/Statistique/dashboard?serviceId=-1&agenceId=-1&dateD=&dateF=&year=-1&Kh=" class="svg-icon">
+                                    <img src="~/assets/images/statics.png" width="15%">
+                                    <span class="ml-3">statistic</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="~/Statistique/dashboardSalaire?month=-1&year=-1&agenceId=-1" class="svg-icon">
+                                    <img src="~/assets/images/statics.png" width="15%">
+                                    <span class="ml-3">salaire</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="~/Statistique/dashboardFournisseur?dateD=&dateF=&year=-1" class="svg-icon">
+                                    <img src="~/assets/images/statics.png" width="15%">
+                                    <span class="ml-3">fournisseur</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="~/Statistique/dashboardTable?serviceId=-1&agenceId=-1&dateD=&dateF=&year=-1&Kh=" class="svg-icon">
+                                    <img src="~/assets/images/statics.png" width="15%">
+                                    <span class="ml-3">detail</span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </nav>
+                    <div class="p-3"></div>
+                </div>
+                <div class="data-scrollbar" data-scroll="1">
+
+                    <div class="p-3"></div>
+                </div>
+
+            </div>
+        </div>
+                }
+
+
               <div class="p-3"></div>
           </div>
           </div>      
