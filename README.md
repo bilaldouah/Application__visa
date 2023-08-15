@@ -1,0 +1,2 @@
+![login](https://github.com/bilaldouah/PFA/assets/88664534/2e805a0f-8211-43d7-a601-596f24f93797)
+Above the login page, users, whether they are administrators or employees, can enter their respective login credentials to access the application. We have implemented a filtering mechanism that determines the role of the person attempting to authenticate. If the user is an admin, they will be directed to the admin section; otherwise, they will be redirected to the employee section
