@@ -29,3 +29,28 @@ Upon receiving the email, and after entering their unique number, employees can 
 ![stat](https://github.com/bilaldouah/PFA/assets/88664534/ed8acc98-1b79-42e5-8c12-3ff87f2552e2)
 
 This is the admin section, where data is presented in graphical format. As illustrated, administrators have the capability to filter the data using various parameters such as service type, agencies, date range (from and to), years, and additional options
+
+
+
+![satatic2](https://github.com/bilaldouah/PFA/assets/88664534/5a57ced1-72bf-4062-9832-212d47d142a5)
+If an agency is selected, administrators can access a comprehensive list of all the employees affiliated with that specific agency. Additionally, they have the option to exclusively view data associated with the chosen agency.
+
+
+
+![satatic3](https://github.com/bilaldouah/PFA/assets/88664534/228f1b06-e5c1-4d9f-80d1-f260ed17e96d)
+
+The same principle applies to agencies; if an employee is selected, administrators can access the data relevant to that particular employee
+
+
+
+![satatic4](https://github.com/bilaldouah/PFA/assets/88664534/e37af38f-fb26-467a-abb5-c5479b3db5bd)
+Administrators have the ability to review their incoming (money). Furthermore, they can apply filters based on specific dates or agencies to refine their view
+
+
+
+
+![satatic6](https://github.com/bilaldouah/PFA/assets/88664534/10202334-5186-47d2-8104-7bff9ba418f7)
+The administrator can access comprehensive details for each file, including the option to view scanned documents by selecting the "Scan du dossier" button
+
+![pic](https://github.com/bilaldouah/PFA/assets/88664534/7b02dab3-da6f-4347-83cf-ea3738496bfb)
+Once the administrator presses the "Scan du dossier" button, this is how the scanned documents will be displayed
